@@ -212,6 +212,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Resource Include="ui_assets\icons\baseline_close_red_36dp.png" />
+    <Resource Include="ui_assets\icons\baseline_help_center_green_36dp.png" />
+    <Resource Include="ui_assets\icons\baseline_power_settings_new_green_36dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
