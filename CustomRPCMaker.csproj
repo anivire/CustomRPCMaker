@@ -157,9 +157,6 @@
     <Resource Include="ui_assets\Discord-Logo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Discord-Logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
@@ -212,6 +209,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ui_assets\icons\baseline_toggle_on_white_36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
