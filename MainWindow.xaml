@@ -91,13 +91,13 @@
         <Label Content="config" HorizontalAlignment="Left" Margin="610,356,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
         <Label Content="Open" HorizontalAlignment="Left" Margin="544,392,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
         <Label Content="config" HorizontalAlignment="Left" Margin="617,396,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Label Content="Title name" HorizontalAlignment="Left" Margin="647,163,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" Foreground="White" Height="24" FontSize="14"/>
-        <Label x:Name="DetailsTextPreview" Content="Details text" HorizontalAlignment="Left" Margin="647,181,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
-        <Label x:Name="StateTextPreview" Content="State text" HorizontalAlignment="Left" Margin="647,198,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
-        <Label x:Name="Timestamp" Content="00:00 left" HorizontalAlignment="Left" Margin="647,215,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
-        <Image x:Name="StartRPCButton" HorizontalAlignment="Left" Height="36" Margin="1168,129,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_power_settings_new_white_36dp.png" Stretch="Fill" Cursor="Hand" MouseLeftButtonDown="StartRPCButton_MouseLeftButtonDown"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="1168,183,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_autorenew_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
-        <Image x:Name="HelpButton" HorizontalAlignment="Left" Height="36" Margin="1168,238,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_help_center_white_36dp.png" Stretch="Fill" Cursor="Hand" ToolTip="Open wiki on Github for help."/>
+        <Label Content="Title name" HorizontalAlignment="Left" Margin="647,160,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" Foreground="White" Height="24" FontSize="14"/>
+        <Label x:Name="DetailsTextPreview" Content="Details text" HorizontalAlignment="Left" Margin="647,178,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
+        <Label x:Name="StateTextPreview" Content="State text" HorizontalAlignment="Left" Margin="647,195,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
+        <Label x:Name="TimestampPreview" Content="00:00 left" HorizontalAlignment="Left" Margin="647,212,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
+        <Image x:Name="StartRPCButton" HorizontalAlignment="Left" Height="36" Margin="1174,129,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_power_settings_new_white_36dp.png" Stretch="Fill" Cursor="Hand" MouseLeftButtonDown="StartRPCButton_MouseLeftButtonDown"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="1174,183,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_autorenew_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
+        <Image x:Name="HelpButton" HorizontalAlignment="Left" Height="36" Margin="1174,238,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_help_center_white_36dp.png" Stretch="Fill" Cursor="Hand" ToolTip="Open wiki on Github for help."/>
         <TextBox x:Name="DetailsNameTextBox" HorizontalAlignment="Left" Height="28" Margin="238,108,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="DetailsNameTextBox_TextChanged" MaxLines="128">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
@@ -108,7 +108,7 @@
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="TimestampTextBox" HorizontalAlignment="Left" Height="28" Margin="238,195,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="128">
+        <TextBox x:Name="TimestampStartTextBox" HorizontalAlignment="Left" Height="28" Margin="238,195,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="128" PreviewTextInput="TimestampStartTextBox_PreviewTextInput">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
@@ -188,13 +188,24 @@
             </TextBox.OpacityMask>
         </TextBox>
         <Label Content="Console:" HorizontalAlignment="Left" Margin="835,102,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="20" Foreground="White"/>
-        <Label Content="Party" HorizontalAlignment="Left" Margin="99,314,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="size" HorizontalAlignment="Left" Margin="173,318,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Image x:Name="PartyButton" HorizontalAlignment="Left" Height="36" Margin="21,316,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand"/>
-        <TextBox x:Name="PartySizeTextBox" HorizontalAlignment="Left" Height="28" Margin="238,322,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="DetailsNameTextBox_TextChanged" MaxLines="128">
+        <Label Content="Party" HorizontalAlignment="Left" Margin="99,310,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="size" HorizontalAlignment="Left" Margin="173,314,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image x:Name="PartyButton" HorizontalAlignment="Left" Height="36" Margin="21,313,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="PartyButton_MouseLeftButtonDown"/>
+        <TextBox x:Name="PartySizeMinTextBox" HorizontalAlignment="Left" Height="28" Margin="238,320,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="PartySizeMinTextBox_TextChanged" MaxLines="3" PreviewTextInput="PartySizeMinTextBox_PreviewTextInput">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
+        <TextBox x:Name="TimestampEndTextBox" HorizontalAlignment="Left" Height="28" Margin="357,195,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="128" PreviewTextInput="TimestampEndTextBox_PreviewTextInput">
+            <TextBox.OpacityMask>
+                <ImageBrush ImageSource="ui_assets/text_rect.png"/>
+            </TextBox.OpacityMask>
+        </TextBox>
+        <TextBox x:Name="PartySizeMaxTextBox" HorizontalAlignment="Left" Height="28" Margin="357,320,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="3" PreviewTextInput="PartySizeMaxTextBox_PreviewTextInput" TextChanged="PartySizeMaxTextBox_TextChanged">
+            <TextBox.OpacityMask>
+                <ImageBrush ImageSource="ui_assets/text_rect.png"/>
+            </TextBox.OpacityMask>
+        </TextBox>
+        <Label x:Name="PartySizePreview" Content="Party size (0 of 0)" HorizontalAlignment="Left" Margin="647,235,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
     </Grid>
 </Window>

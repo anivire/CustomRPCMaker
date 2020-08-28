@@ -3,6 +3,7 @@ using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Win32;
 using System;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -12,14 +13,16 @@ namespace CustomRPCMaker
     public partial class MainWindow : Window
     {
         public DiscordRpcClient Client { get; private set; }
-        public string AppID { get; set; }
 
+        public string AppID { get; set; }
         public string Details { get; set; }
         public string State { get; set; }
         public string BigImage { get; set; }
         public string SmallImage { get; set; }
         public string BigImageText { get; set; }
         public string SmallImageText { get; set; }
+        public int PartySizeMin { get; set; }
+        public int PartySizeMax { get; set; }
 
         public bool IsDetails = false;
         public bool IsState = false;
@@ -28,6 +31,7 @@ namespace CustomRPCMaker
         public bool IsSmallImageName = false;
         public bool IsBigImageText = false;
         public bool IsSmallImageText = false;
+        public bool IsParty = false;
         public bool IsStarted = false;
 
         public MainWindow()
@@ -101,13 +105,15 @@ namespace CustomRPCMaker
         {
             if (!IsTimestamp)
             {
-                TimestampTextBox.IsEnabled = true;
+                TimestampStartTextBox.IsEnabled = true;
+                TimestampEndTextBox.IsEnabled = true;
                 IsTimestamp = true;
                 TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
             }
             else
             {
-                TimestampTextBox.IsEnabled = false;
+                TimestampStartTextBox.IsEnabled = false;
+                TimestampEndTextBox.IsEnabled = false;
                 IsTimestamp = false;
                 TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
             }
@@ -186,6 +192,12 @@ namespace CustomRPCMaker
                     Details = Details,
                     State = State,
                     Timestamps = Timestamps.Now,
+                    Party = new Party()
+                    {
+                        ID = "justTextForWorkAPrtySystem",
+                        Size = PartySizeMin,
+                        Max = PartySizeMax
+                    },
                     Assets = new Assets()
                     {
                         LargeImageKey = BigImage,
@@ -264,6 +276,84 @@ namespace CustomRPCMaker
         private void ConsoleTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             ConsoleTextBox.ScrollToEnd();
+        }
+
+        private void TimestampStartTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void TimestampEndTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void PartySizeMinTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void PartyButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!IsParty)
+            {
+                PartySizeMinTextBox.IsEnabled = true;
+                PartySizeMaxTextBox.IsEnabled = true;
+                IsParty = true;
+                PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+            }
+            else
+            {
+                PartySizeMinTextBox.IsEnabled = false;
+                PartySizeMaxTextBox.IsEnabled = false;
+                IsParty = false;
+                PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
+            }
+        }
+
+        private void PartySizeMinTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (PartySizeMinTextBox.Text.Length < 1)
+            {
+                PartySizeMin = 0;
+                PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+            }
+            else if (Convert.ToInt32(PartySizeMinTextBox.Text) > 999)
+            {
+                PartySizeMinTextBox.Text = null;
+            }
+            else
+            {
+                PartySizeMin = Convert.ToInt32(PartySizeMinTextBox.Text);
+                PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+            }
+        }
+
+        private void PartySizeMaxTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void PartySizeMaxTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (PartySizeMaxTextBox.Text.Length < 1)
+            {
+                PartySizeMax = 0;
+                PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+            }
+            else if (Convert.ToInt32(PartySizeMaxTextBox.Text) > 999)
+            {
+                PartySizeMaxTextBox.Text = null;
+            }
+            else
+            {
+                PartySizeMax = Convert.ToInt32(PartySizeMaxTextBox.Text);
+                PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+            }  
         }
     }
 }
