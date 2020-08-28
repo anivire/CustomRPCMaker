@@ -1,15 +1,26 @@
-﻿using Hardcodet.Wpf.TaskbarNotification;
+﻿using DiscordRPC;
+using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Win32;
 using System;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace CustomRPCMaker
 {
     public partial class MainWindow : Window
     {
+        public DiscordRpcClient Client { get; private set; }
+        public string AppID { get; set; }
+
+        public string Details { get; set; }
+        public string State { get; set; }
+        public string BigImage { get; set; }
+        public string SmallImage { get; set; }
+        public string BigImageText { get; set; }
+        public string SmallImageText { get; set; }
+
         public bool IsDetails = false;
         public bool IsState = false;
         public bool IsTimestamp = false;
@@ -17,6 +28,7 @@ namespace CustomRPCMaker
         public bool IsSmallImageName = false;
         public bool IsBigImageText = false;
         public bool IsSmallImageText = false;
+        public bool IsStarted = false;
 
         public MainWindow()
         {
@@ -24,23 +36,17 @@ namespace CustomRPCMaker
 
             TaskbarIcon.Icon = new Icon(@"C:\Users\anivire\source\repos\CustomRPCMaker\ui_assets\Discord-Logo-Color.ico");
             TaskbarIcon.ToolTipText = "Discord RPC Maker";
+
         }
 
         private void CloseApp_Click(object sender, MouseButtonEventArgs e)
         {
-            Close(); 
+            Close();
         }
 
         private void MinimizeApp_Click(object sender, MouseButtonEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
-        }
-
-        private void MainWorkingWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            var move = sender as System.Windows.Controls.Grid;
-            var win = Window.GetWindow(move);
-            win.DragMove();
+            this.Hide();
         }
 
         private void TaskbarIcon_TrayMouseClick(object sender, RoutedEventArgs e)
@@ -141,6 +147,123 @@ namespace CustomRPCMaker
                 IsSmallImageName = false;
                 SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
             }
+        }
+
+        private void ChooseSavePathButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void ChooseLoadPathButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = " Config files (*.json) | *.json";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                LoadPathConfigTextBox.Text = openFileDialog.FileName;
+            }
+        }
+
+        private void Footer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void StartRPCButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!IsStarted && AppID != null)
+            {
+                Client = new DiscordRpcClient(AppID, autoEvents: false);
+                Client.Initialize();
+
+                Client.OnReady += (senderCtx, ctx) =>
+                {
+                };
+
+                Client.SetPresence(new RichPresence()
+                {
+                    Details = Details,
+                    State = State,
+                    Timestamps = Timestamps.Now,
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = BigImage,
+                        LargeImageText = BigImageText,
+                        SmallImageKey = SmallImage,
+                        SmallImageText = SmallImageText
+                    }
+                });
+            }
+            else if (AppID == null)
+            {
+
+            }
+
+        }
+
+        void Update()
+        {
+            //Invoke the events once per-frame. The events will be executed on calling thread.
+            Client.Invoke();
+        }
+
+        private void DetailsNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            Details = DetailsNameTextBox.Text;
+            if (Details.Length > 15)
+            {
+                DetailsTextPreview.Content = Details.Substring(0, 15) + "...";
+            }
+            else
+            {
+                DetailsTextPreview.Content = DetailsNameTextBox.Text;
+            }
+        }
+
+        private void StateNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            State = StateNameTextBox.Text;
+            if (State.Length > 15)
+            {
+                StateTextPreview.Content = State.Substring(0, 15) + "...";
+            }
+            else
+            {
+                StateTextPreview.Content = StateNameTextBox.Text;
+            }
+        }
+
+        private void SmallImageTextTexBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            SmallImageText = BigImageNameTextBox.Text;
+            HiddenSmallImageText.ToolTip = SmallImageTextTextBox.Text;
+        }
+
+        private void BigImageTextTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            BigImageText = BigImageNameTextBox.Text;
+            HiddenBigImageText.ToolTip = BigImageNameTextBox.Text;
+        }
+
+        private void ClientIDBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            AppID = ClientIDBox.Password;
+        }
+
+        private void BigImageNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            BigImage = BigImageNameTextBox.Text;
+        }
+
+        private void SmallImageNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            SmallImage = BigImageNameTextBox.Text;
+        }
+
+        private void ConsoleTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            ConsoleTextBox.ScrollToEnd();
         }
     }
 }

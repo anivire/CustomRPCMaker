@@ -7,48 +7,48 @@
         xmlns:local="clr-namespace:CustomRPCMaker"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Discord RPC Maker" Height="693.25" Width="1066.062" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen" WindowStyle="None">
-    <Grid x:Name="MainWorkingWindow" MouseLeftButtonDown="MainWorkingWindow_MouseLeftButtonDown" ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="1066">
+        Title="Discord RPC Maker" Height="720" Width="1280" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid x:Name="MainWorkingWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="1280">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="ui_assets/background.png"/>
         </Grid.Background>
-        <Image HorizontalAlignment="Left" Height="51" VerticalAlignment="Top" Width="1066" Source="ui_assets/footer.png"/>
-        <Image Name="CloseApp" HorizontalAlignment="Left" Height="24" Margin="1027,12,0,0" VerticalAlignment="Top" Width="24" Source="ui_assets/icons/baseline_close_white_36dp.png" MouseLeftButtonDown="CloseApp_Click" Cursor="Hand" Stretch="Fill" MouseEnter="CloseApp_MouseEnter" MouseLeave="CloseApp_MouseLeave" />
-        <Image x:Name="MinimizeApp" HorizontalAlignment="Left" Height="24" Margin="994,10,0,0" VerticalAlignment="Top" Width="24" Source="ui_assets/icons/baseline_minimize_white_36dp.png" MouseLeftButtonDown="MinimizeApp_Click" Stretch="Fill" Cursor="Hand"/>
+        <Image x:Name="Footer" HorizontalAlignment="Left" Height="53" VerticalAlignment="Top" Width="1280" Source="ui_assets/footer.png" MouseLeftButtonDown="Footer_MouseLeftButtonDown" Margin="0,-1,0,0"/>
+        <Image Name="CloseApp" HorizontalAlignment="Left" Height="24" Margin="1237,12,0,0" VerticalAlignment="Top" Width="24" Source="ui_assets/icons/baseline_close_white_36dp.png" MouseLeftButtonDown="CloseApp_Click" Cursor="Hand" Stretch="Fill" MouseEnter="CloseApp_MouseEnter" MouseLeave="CloseApp_MouseLeave" />
+        <Image x:Name="MinimizeApp" HorizontalAlignment="Left" Height="24" Margin="1197,10,0,0" VerticalAlignment="Top" Width="24" Source="ui_assets/icons/baseline_minimize_white_36dp.png" MouseLeftButtonDown="MinimizeApp_Click" Stretch="Fill" Cursor="Hand"/>
         <tb:TaskbarIcon Name="TaskbarIcon" Visibility="Visible" TrayLeftMouseDown="TaskbarIcon_TrayMouseClick"/>
         <Label Content="RPC" HorizontalAlignment="Left" Margin="57,58,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
         <Label Content="Settings" HorizontalAlignment="Left" Margin="114,62,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
         <Image HorizontalAlignment="Left" Height="36" Margin="21,59,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_tune_white_36dp.png" Stretch="Fill">
         </Image>
-        <Label Content="Details" HorizontalAlignment="Left" Margin="57,116,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="name" HorizontalAlignment="Left" Margin="151,119,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Label Content="State" HorizontalAlignment="Left" Margin="79,154,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="name" HorizontalAlignment="Left" Margin="151,158,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Label Content="Timestamp" HorizontalAlignment="Left" Margin="66,200,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="Big" HorizontalAlignment="Left" Margin="100,241,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="image" HorizontalAlignment="Left" Margin="146,245,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Image x:Name="DetailsButton" HorizontalAlignment="Left" Height="36" Margin="21,117,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="DetailsButton_MouseLeftButtonDown"/>
-        <Image x:Name="StateButton" HorizontalAlignment="Left" Height="36" Margin="21,157,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="StateButton_MouseLeftButtonDown"/>
-        <Image x:Name="TimestampButton" HorizontalAlignment="Left" Height="36" Margin="21,202,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="TimestampButton_MouseLeftButtonDown"/>
-        <Image Name="BigImageButton" HorizontalAlignment="Left" Height="36" Margin="21,243,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="BigImageButton_MouseLeftButtonDown"/>
-        <Image HorizontalAlignment="Left" Height="186" Margin="498,128,0,0" VerticalAlignment="Top" Width="334" Source="ui_assets/discord_splash.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+        <Label Content="Details" HorizontalAlignment="Left" Margin="57,101,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="name" HorizontalAlignment="Left" Margin="151,104,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Label Content="State" HorizontalAlignment="Left" Margin="79,139,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="name" HorizontalAlignment="Left" Margin="151,143,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Label Content="Timestamp" HorizontalAlignment="Left" Margin="66,185,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="Big" HorizontalAlignment="Left" Margin="100,226,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="image" HorizontalAlignment="Left" Margin="146,230,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image x:Name="DetailsButton" HorizontalAlignment="Left" Height="36" Margin="21,102,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="DetailsButton_MouseLeftButtonDown"/>
+        <Image x:Name="StateButton" HorizontalAlignment="Left" Height="36" Margin="21,142,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="StateButton_MouseLeftButtonDown"/>
+        <Image x:Name="TimestampButton" HorizontalAlignment="Left" Height="36" Margin="21,187,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="TimestampButton_MouseLeftButtonDown"/>
+        <Image Name="BigImageButton" HorizontalAlignment="Left" Height="36" Margin="21,228,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="BigImageButton_MouseLeftButtonDown"/>
+        <Image HorizontalAlignment="Left" Height="186" Margin="498,113,0,0" VerticalAlignment="Top" Width="334" Source="ui_assets/discord_splash.png" RenderOptions.BitmapScalingMode="HighQuality"/>
         <Label Content="RPC" HorizontalAlignment="Left" Margin="534,60,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
         <Label Content="Preview" HorizontalAlignment="Left" Margin="592,64,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
         <Image HorizontalAlignment="Left" Height="36" Margin="498,61,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_preview_white_36dp.png" Stretch="Fill"/>
-        <Label Content="Small" HorizontalAlignment="Left" Margin="72,282,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="image" HorizontalAlignment="Left" Margin="146,286,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Image x:Name="SmallImageButton" HorizontalAlignment="Left" Height="36" Margin="21,284,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="SmallImageButton_MouseLeftButtonDown"/>
-        <Label Content="Big" HorizontalAlignment="Left" Margin="56,320,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="image text" HorizontalAlignment="Left" Margin="102,324,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Label Content="Small" HorizontalAlignment="Left" Margin="28,361,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="image text" HorizontalAlignment="Left" Margin="102,364,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Label Content="Discord Developers" HorizontalAlignment="Left" Margin="57,470,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="Settings" HorizontalAlignment="Left" Margin="312,474,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="21,472,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_memory_white_36dp.png" Stretch="Fill"/>
-        <Label Content="Client ID" HorizontalAlignment="Left" Margin="41,529,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="Small" HorizontalAlignment="Left" Margin="72,267,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="image" HorizontalAlignment="Left" Margin="146,271,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image x:Name="SmallImageButton" HorizontalAlignment="Left" Height="36" Margin="21,269,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="SmallImageButton_MouseLeftButtonDown"/>
+        <Label Content="Big" HorizontalAlignment="Left" Margin="56,351,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="image text" HorizontalAlignment="Left" Margin="102,355,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Label Content="Small" HorizontalAlignment="Left" Margin="28,392,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="image text" HorizontalAlignment="Left" Margin="102,395,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Label Content="Discord Developers" HorizontalAlignment="Left" Margin="57,506,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="Settings" HorizontalAlignment="Left" Margin="312,510,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="21,508,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_memory_white_36dp.png" Stretch="Fill"/>
+        <Label Content="Client ID" HorizontalAlignment="Left" Margin="21,565,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White" ToolTip="Copy Client ID from your profile on discord.com/developers/applications"/>
         <Image HorizontalAlignment="Left" Height="6" VerticalAlignment="Top" Width="720" Source="ui_assets/footer.png" Margin="-357,357,0,0" RenderTransformOrigin="0.5,0.5" Stretch="Fill">
             <Image.RenderTransform>
                 <TransformGroup>
@@ -59,7 +59,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image HorizontalAlignment="Left" Height="6" VerticalAlignment="Top" Width="720" Source="ui_assets/footer.png" Margin="703,357,-143,0" RenderTransformOrigin="0.5,0.5" Stretch="Fill">
+        <Image HorizontalAlignment="Left" Height="6" VerticalAlignment="Top" Width="720" Source="ui_assets/footer.png" Margin="917,357,-357,0" RenderTransformOrigin="0.5,0.5" Stretch="Fill">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -69,94 +69,132 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image Height="6" VerticalAlignment="Top" Source="ui_assets/footer.png" Margin="0,687,0,0" RenderTransformOrigin="0.5,0.5" Stretch="Fill" HorizontalAlignment="Left" Width="1066"/>
-        <Label Content="RPC Maker" HorizontalAlignment="Left" Margin="534,471,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="Settings" HorizontalAlignment="Left" Margin="678,475,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="498,472,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_settings_white_36dp.png" Stretch="Fill"/>
-        <Label Content="Minimize to tray" HorizontalAlignment="Left" Margin="536,529,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="while closing program" HorizontalAlignment="Left" Margin="748,533,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="498,531,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
-        <Label Content="Allow auto load" HorizontalAlignment="Left" Margin="536,579,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="previosly created RPC config" HorizontalAlignment="Left" Margin="740,583,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="498,581,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
-        <Label Content="Display your current time" HorizontalAlignment="Left" Margin="536,628,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="in timestamp" HorizontalAlignment="Left" Margin="868,632,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="498,630,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="498,328,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_save_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="498,368,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_folder_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="498,409,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_code_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
-        <Label Content="Save" HorizontalAlignment="Left" Margin="544,328,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="config" HorizontalAlignment="Left" Margin="609,331,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Label Content="Load" HorizontalAlignment="Left" Margin="544,367,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="config" HorizontalAlignment="Left" Margin="610,371,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Label Content="Edit" HorizontalAlignment="Left" Margin="544,408,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="config" HorizontalAlignment="Left" Margin="600,412,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Label Content="Title name" HorizontalAlignment="Left" Margin="647,178,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" Foreground="White" Height="24" FontSize="14"/>
-        <Label Content="Details text" HorizontalAlignment="Left" Margin="647,196,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
-        <Label Content="State text" HorizontalAlignment="Left" Margin="647,213,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
-        <Label Content="00:00 left" HorizontalAlignment="Left" Margin="647,230,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="42,588,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_power_settings_new_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="42,630,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_autorenew_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
-        <Label Content="On / Off RPC" HorizontalAlignment="Left" Margin="82,587,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="Reload RPC" HorizontalAlignment="Left" Margin="82,628,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Image x:Name="HelpButton" HorizontalAlignment="Left" Height="24" Margin="958,10,0,0" VerticalAlignment="Top" Width="24" Source="ui_assets/icons/baseline_help_center_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
-        <TextBox x:Name="DetailsNameTextBox" HorizontalAlignment="Left" Height="28" Margin="238,123,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False">
+        <Image Height="6" VerticalAlignment="Top" Source="ui_assets/footer.png" Margin="0,714,0,0" RenderTransformOrigin="0.5,0.5" Stretch="Fill" HorizontalAlignment="Left" Width="1280"/>
+        <Label Content="RPC Maker" HorizontalAlignment="Left" Margin="534,507,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="Settings" HorizontalAlignment="Left" Margin="678,511,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="498,508,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_settings_white_36dp.png" Stretch="Fill"/>
+        <Label Content="Minimize to tray" HorizontalAlignment="Left" Margin="536,565,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="while closing program" HorizontalAlignment="Left" Margin="748,569,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="498,567,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
+        <Label Content="Enable auto load" HorizontalAlignment="Left" Margin="536,615,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="previosly created RPC config" HorizontalAlignment="Left" Margin="754,619,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="498,617,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
+        <Label Content="Display your current time" HorizontalAlignment="Left" Margin="536,664,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="in timestamp" HorizontalAlignment="Left" Margin="868,668,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="498,666,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="498,313,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_save_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="499,355,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_system_update_alt_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="499,394,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_code_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
+        <Label Content="Save" HorizontalAlignment="Left" Margin="544,313,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="config" HorizontalAlignment="Left" Margin="609,316,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Label Content="Load" HorizontalAlignment="Left" Margin="544,352,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="config" HorizontalAlignment="Left" Margin="610,356,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Label Content="Open" HorizontalAlignment="Left" Margin="544,392,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="config" HorizontalAlignment="Left" Margin="617,396,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Label Content="Title name" HorizontalAlignment="Left" Margin="647,163,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" Foreground="White" Height="24" FontSize="14"/>
+        <Label x:Name="DetailsTextPreview" Content="Details text" HorizontalAlignment="Left" Margin="647,181,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
+        <Label x:Name="StateTextPreview" Content="State text" HorizontalAlignment="Left" Margin="647,198,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
+        <Label x:Name="Timestamp" Content="00:00 left" HorizontalAlignment="Left" Margin="647,215,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
+        <Image x:Name="StartRPCButton" HorizontalAlignment="Left" Height="36" Margin="1168,129,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_power_settings_new_white_36dp.png" Stretch="Fill" Cursor="Hand" MouseLeftButtonDown="StartRPCButton_MouseLeftButtonDown"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="1168,183,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_autorenew_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
+        <Image x:Name="HelpButton" HorizontalAlignment="Left" Height="36" Margin="1168,238,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_help_center_white_36dp.png" Stretch="Fill" Cursor="Hand" ToolTip="Open wiki on Github for help."/>
+        <TextBox x:Name="DetailsNameTextBox" HorizontalAlignment="Left" Height="28" Margin="238,108,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="DetailsNameTextBox_TextChanged" MaxLines="128">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="StateNameTextBox" HorizontalAlignment="Left" Height="28" Margin="238,164,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False">
+        <TextBox x:Name="StateNameTextBox" HorizontalAlignment="Left" Height="28" Margin="238,149,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="StateNameTextBox_TextChanged" MaxLines="128">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="TimestampTextBox" HorizontalAlignment="Left" Height="28" Margin="238,210,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False">
+        <TextBox x:Name="TimestampTextBox" HorizontalAlignment="Left" Height="28" Margin="238,195,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="128">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="BigImageNameTextBox" HorizontalAlignment="Left" Height="28" Margin="238,251,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False">
+        <TextBox x:Name="BigImageNameTextBox" HorizontalAlignment="Left" Height="28" Margin="238,236,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="BigImageNameTextBox_TextChanged" MaxLines="120">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="SmallImageNameTextBox" HorizontalAlignment="Left" Height="28" Margin="238,292,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False">
+        <TextBox x:Name="SmallImageNameTextBox" HorizontalAlignment="Left" Height="28" Margin="238,277,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="SmallImageNameTextBox_TextChanged" MaxLines="120">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="BigImageTextTextBox" HorizontalAlignment="Left" Height="28" Margin="238,331,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False">
+        <TextBox x:Name="BigImageTextTextBox" HorizontalAlignment="Left" Height="28" Margin="238,362,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="BigImageTextTextBox_TextChanged" MaxLines="128">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="SmallImageTextTextBox" HorizontalAlignment="Left" Height="28" Margin="238,371,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False">
+        <TextBox x:Name="SmallImageTextTextBox" HorizontalAlignment="Left" Height="28" Margin="238,402,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="SmallImageTextTexBox_TextChanged" MaxLines="128">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="ClientIDTextBox" HorizontalAlignment="Left" Height="28" Margin="172,535,0,0" VerticalAlignment="Top" Width="290" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
+        <TextBox x:Name="LoadPathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="706,360,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="LoadPathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="698,375,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
+        <Image x:Name="ChooseLoadPathButton" HorizontalAlignment="Left" Height="36" Margin="946,355,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_folder_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514" MouseLeftButtonDown="ChooseLoadPathButton_MouseLeftButtonDown"/>
+        <TextBox x:Name="SavePathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="706,318,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <Image HorizontalAlignment="Left" Height="36" Margin="927,370,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_more_horiz_white_18dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514"/>
-        <TextBox x:Name="SavePathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="698,333,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
+        <Image x:Name="ChooseSavePathButton" HorizontalAlignment="Left" Height="36" Margin="946,313,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_folder_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514" MouseLeftButtonDown="ChooseSavePathButton_MouseLeftButtonDown"/>
+        <TextBox x:Name="EditPathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="706,399,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <Image HorizontalAlignment="Left" Height="36" Margin="927,328,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_more_horiz_white_18dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514"/>
-        <TextBox x:Name="EditPathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="698,414,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
+        <Image HorizontalAlignment="Left" Height="36" Margin="946,394,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_folder_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514"/>
+        <Image x:Name="HiddenBigImageText" HorizontalAlignment="Left" Height="99" Margin="528,163,0,0" VerticalAlignment="Top" Width="98" Source="ui_assets/discord_big_image.png" Stretch="Fill"/>
+        <Image x:Name="HiddenSmallImageText" HorizontalAlignment="Left" Height="36" Margin="602,236,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/discord_small_image.png" Stretch="Fill"/>
+        <PasswordBox x:Name="ClientIDBox" HorizontalAlignment="Left" BorderThickness="0" Margin="152,569,0,0" VerticalAlignment="Top" Width="290" Height="28" BorderBrush="#00000000" Foreground="White" SelectionBrush="#FF5983E4" VerticalContentAlignment="Center" Padding="5,0,0,0" PasswordChanged="ClientIDBox_PasswordChanged">
+            <PasswordBox.Background>
+                <ImageBrush ImageSource="ui_assets/text_rect.png"/>
+            </PasswordBox.Background>
+            <PasswordBox.OpacityMask>
+                <ImageBrush ImageSource="ui_assets/text_rect.png"/>
+            </PasswordBox.OpacityMask>
+        </PasswordBox>
+        <Label Content="RPC" HorizontalAlignment="Left" Margin="871,60,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="929,64,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="835,58,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_query_builder_white_36dp.png" Stretch="Fill"/>
+        <Label Content="Custom RPC" HorizontalAlignment="Left" Margin="17,2,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="Maker" HorizontalAlignment="Left" Margin="182,6,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Label Content="preview build 0.1" HorizontalAlignment="Left" Margin="249,16,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="10" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="499,435,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_add_to_queue_white_36dp.png" Stretch="Fill"/>
+        <Label Content="App" HorizontalAlignment="Left" Margin="544,433,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="path" HorizontalAlignment="Left" Margin="601,437,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <TextBox x:Name="EditPathConfigTextBox_Copy" HorizontalAlignment="Left" Height="28" Margin="706,440,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <Image HorizontalAlignment="Left" Height="36" Margin="927,409,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_more_horiz_white_18dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="946,435,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_folder_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514"/>
+        <Label Content="Enable app check" HorizontalAlignment="Left" Margin="59,615,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="for RPC start" HorizontalAlignment="Left" Margin="292,619,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="21,617,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
+        <TextBox x:Name="ConsoleTextBox" HorizontalAlignment="Left" Height="186" Margin="835,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="334" BorderBrush="{x:Null}" Foreground="White" FontFamily="Consolas" BorderThickness="0" SelectionBrush="#FF5983E4" IsReadOnly="True" IsUndoEnabled="False" Padding="15" TextChanged="ConsoleTextBox_TextChanged">
+            <TextBox.Background>
+                <ImageBrush ImageSource="ui_assets/console_splash.png"/>
+            </TextBox.Background>
+            <TextBox.OpacityMask>
+                <ImageBrush ImageSource="ui_assets/console_splash.png"/>
+            </TextBox.OpacityMask>
+        </TextBox>
+        <Label Content="Console:" HorizontalAlignment="Left" Margin="835,102,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="20" Foreground="White"/>
+        <Label Content="Party" HorizontalAlignment="Left" Margin="99,314,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="size" HorizontalAlignment="Left" Margin="173,318,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image x:Name="PartyButton" HorizontalAlignment="Left" Height="36" Margin="21,316,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand"/>
+        <TextBox x:Name="PartySizeTextBox" HorizontalAlignment="Left" Height="28" Margin="238,322,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="DetailsNameTextBox_TextChanged" MaxLines="128">
+            <TextBox.OpacityMask>
+                <ImageBrush ImageSource="ui_assets/text_rect.png"/>
+            </TextBox.OpacityMask>
+        </TextBox>
     </Grid>
 </Window>

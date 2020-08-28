@@ -154,9 +154,6 @@
     <Resource Include="ui_assets\icons\baseline_preview_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\Discord-Logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
@@ -212,6 +209,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Resource Include="ui_assets\console_splash.png" />
+    <Resource Include="ui_assets\icons\baseline_add_to_queue_white_36dp.png" />
+    <Resource Include="ui_assets\icons\baseline_link_white_36dp.png" />
+    <Resource Include="ui_assets\Discord_icon_without_borders.png" />
+    <Resource Include="ui_assets\icons\baseline_visibility_white_36dp.png" />
+    <Resource Include="ui_assets\icons\baseline_play_arrow_white_36dp.png" />
+    <Resource Include="ui_assets\icons\baseline_stop_white_36dp.png" />
+    <Resource Include="ui_assets\icons\baseline_query_builder_white_36dp.png" />
+    <Resource Include="ui_assets\discord_big_image.png" />
+    <Resource Include="ui_assets\discord_small_image.png" />
+    <Resource Include="ui_assets\icons\baseline_system_update_alt_white_36dp.png" />
     <Resource Include="ui_assets\icons\baseline_close_red_36dp.png" />
     <Resource Include="ui_assets\icons\baseline_help_center_green_36dp.png" />
     <Resource Include="ui_assets\icons\baseline_power_settings_new_green_36dp.png" />
