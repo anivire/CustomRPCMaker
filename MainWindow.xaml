@@ -79,9 +79,9 @@
         <Label Content="Enable auto load" HorizontalAlignment="Left" Margin="536,615,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
         <Label Content="previosly created RPC config" HorizontalAlignment="Left" Margin="754,619,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
         <Image HorizontalAlignment="Left" Height="36" Margin="498,617,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
-        <Label Content="Display your current time" HorizontalAlignment="Left" Margin="536,664,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="in timestamp" HorizontalAlignment="Left" Margin="868,668,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="498,666,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
+        <Label Content="Display current time" HorizontalAlignment="Left" Margin="58,664,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="in timestamp" HorizontalAlignment="Left" Margin="325,668,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="20,666,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
         <Image HorizontalAlignment="Left" Height="36" Margin="498,313,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_save_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
         <Image HorizontalAlignment="Left" Height="36" Margin="499,355,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_system_update_alt_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
         <Image HorizontalAlignment="Left" Height="36" Margin="499,394,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_code_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
@@ -108,7 +108,7 @@
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="TimestampStartTextBox" HorizontalAlignment="Left" Height="28" Margin="238,195,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="128" PreviewTextInput="TimestampStartTextBox_PreviewTextInput">
+        <TextBox x:Name="TimestampStartTextBox" HorizontalAlignment="Left" Height="28" Margin="238,195,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="128" PreviewTextInput="TimestampStartTextBox_PreviewTextInput" TextChanged="TimestampStartTextBox_TextChanged">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
@@ -161,8 +161,8 @@
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </PasswordBox.OpacityMask>
         </PasswordBox>
-        <Label Content="RPC" HorizontalAlignment="Left" Margin="871,60,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="Status" HorizontalAlignment="Left" Margin="929,64,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Label Content="RPC" HorizontalAlignment="Left" Margin="870,58,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="928,62,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
         <Image HorizontalAlignment="Left" Height="36" Margin="835,58,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_query_builder_white_36dp.png" Stretch="Fill"/>
         <Label Content="Custom RPC" HorizontalAlignment="Left" Margin="17,2,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
         <Label Content="Maker" HorizontalAlignment="Left" Margin="182,6,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
@@ -176,10 +176,10 @@
             </TextBox.OpacityMask>
         </TextBox>
         <Image HorizontalAlignment="Left" Height="36" Margin="946,435,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_folder_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514"/>
-        <Label Content="Enable app check" HorizontalAlignment="Left" Margin="59,615,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
-        <Label Content="for RPC start" HorizontalAlignment="Left" Margin="292,619,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="21,617,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
-        <TextBox x:Name="ConsoleTextBox" HorizontalAlignment="Left" Height="186" Margin="835,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="334" BorderBrush="{x:Null}" Foreground="White" FontFamily="Consolas" BorderThickness="0" SelectionBrush="#FF5983E4" IsReadOnly="True" IsUndoEnabled="False" Padding="15" TextChanged="ConsoleTextBox_TextChanged">
+        <Label Content="Enable app check" HorizontalAlignment="Left" Margin="535,664,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="for RPC start" HorizontalAlignment="Left" Margin="768,668,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="498,666,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
+        <TextBox x:Name="ConsoleTextBox" HorizontalAlignment="Left" Height="186" Margin="835,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="334" BorderBrush="{x:Null}" Foreground="White" FontFamily="Consolas" BorderThickness="0" SelectionBrush="#FF5983E4" IsReadOnly="True" IsUndoEnabled="False" Padding="16,17" TextChanged="ConsoleTextBox_TextChanged">
             <TextBox.Background>
                 <ImageBrush ImageSource="ui_assets/console_splash.png"/>
             </TextBox.Background>
@@ -196,7 +196,7 @@
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="TimestampEndTextBox" HorizontalAlignment="Left" Height="28" Margin="357,195,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="128" PreviewTextInput="TimestampEndTextBox_PreviewTextInput">
+        <TextBox x:Name="TimestampEndTextBox" HorizontalAlignment="Left" Height="28" Margin="357,195,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="128" PreviewTextInput="TimestampEndTextBox_PreviewTextInput" TextChanged="TimestampEndTextBox_TextChanged">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
@@ -207,5 +207,8 @@
             </TextBox.OpacityMask>
         </TextBox>
         <Label x:Name="PartySizePreview" Content="Party size (0 of 0)" HorizontalAlignment="Left" Margin="647,235,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
+        <Label Content="Display elapsed time" HorizontalAlignment="Left" Margin="59,615,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
+        <Label Content="in timestamp" HorizontalAlignment="Left" Margin="331,619,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
+        <Image HorizontalAlignment="Left" Height="36" Margin="21,617,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
     </Grid>
 </Window>

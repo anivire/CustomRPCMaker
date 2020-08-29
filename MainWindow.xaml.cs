@@ -1,11 +1,15 @@
 ﻿using DiscordRPC;
+using DiscordRPC.Message;
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Win32;
 using System;
 using System.Drawing;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace CustomRPCMaker
@@ -23,6 +27,8 @@ namespace CustomRPCMaker
         public string SmallImageText { get; set; }
         public int PartySizeMin { get; set; }
         public int PartySizeMax { get; set; }
+        public double TimestampStart { get; set; }
+        public double TimestampEnd { get; set; }
 
         public bool IsDetails = false;
         public bool IsState = false;
@@ -41,6 +47,11 @@ namespace CustomRPCMaker
             TaskbarIcon.Icon = new Icon(@"C:\Users\anivire\source\repos\CustomRPCMaker\ui_assets\Discord-Logo-Color.ico");
             TaskbarIcon.ToolTipText = "Discord RPC Maker";
 
+            this.Dispatcher.Invoke(() =>
+            {
+                this.ConsoleTextBox.Text += $"[INFO] Welcome to Custom Discord RPC!\n";
+                this.ConsoleTextBox.Text += $"[INFO] Change RPC settings in left box\n";
+            });
         }
 
         private void CloseApp_Click(object sender, MouseButtonEventArgs e)
@@ -73,12 +84,20 @@ namespace CustomRPCMaker
         {
             if (!IsDetails)
             {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] Details field ENABLED\n";
+                });
                 DetailsNameTextBox.IsEnabled = true;
                 IsDetails = true;
                 DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
             }
             else
             {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] Details field DISABLED\n";
+                });
                 DetailsNameTextBox.IsEnabled = false;
                 IsDetails = false;
                 DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
@@ -89,12 +108,20 @@ namespace CustomRPCMaker
         {
             if (!IsState)
             {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] State field ENABLED\n";
+                });
                 StateNameTextBox.IsEnabled = true;
                 IsState = true;
                 StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
             }
             else
             {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] State field DISABLED\n";
+                });
                 StateNameTextBox.IsEnabled = false;
                 IsState = false;
                 StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
@@ -123,6 +150,10 @@ namespace CustomRPCMaker
         {
             if (!IsBigImageName)
             {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                });
                 BigImageNameTextBox.IsEnabled = true;
                 BigImageTextTextBox.IsEnabled = true;
                 IsBigImageName = true;
@@ -130,6 +161,10 @@ namespace CustomRPCMaker
             }
             else
             {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] Large image field DISABLED\n";
+                });
                 BigImageNameTextBox.IsEnabled = false;
                 BigImageTextTextBox.IsEnabled = false;
                 IsBigImageName = false;
@@ -141,6 +176,10 @@ namespace CustomRPCMaker
         {
             if (!IsSmallImageName)
             {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] Small image field ENABLED\n";
+                });
                 SmallImageNameTextBox.IsEnabled = true;
                 SmallImageTextTextBox.IsEnabled = true;
                 IsSmallImageName = true;
@@ -148,6 +187,10 @@ namespace CustomRPCMaker
             }
             else
             {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] Small image field DISABLED\n";
+                });
                 SmallImageNameTextBox.IsEnabled = false;
                 SmallImageTextTextBox.IsEnabled = false;
                 IsSmallImageName = false;
@@ -178,46 +221,59 @@ namespace CustomRPCMaker
 
         private void StartRPCButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!IsStarted && AppID != null)
+            Thread thread = new Thread(() =>
             {
-                Client = new DiscordRpcClient(AppID, autoEvents: false);
-                Client.Initialize();
-
-                Client.OnReady += (senderCtx, ctx) =>
+                if (!IsStarted && AppID != null)
                 {
-                };
+                    Client = new DiscordRpcClient(AppID);
+                    Client.Initialize();
 
-                Client.SetPresence(new RichPresence()
+                    Client.OnReady += OnReady;
+
+                    Client.SetPresence(new RichPresence()
+                    {
+                        Details = Details,
+                        State = State,
+                        Timestamps = new Timestamps()
+                        {
+                            StartUnixMilliseconds = (ulong)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1,
+                                DateTime.Now.Hour,
+                                DateTime.Now.Minute,
+                                DateTime.Now.Second))).TotalSeconds,
+                        },
+                        Party = new Party()
+                        {
+                            ID = "justTextForWorkAPrtySystem",
+                            Size = PartySizeMin,
+                            Max = PartySizeMax
+                        },
+                        Assets = new Assets()
+                        {
+                            LargeImageKey = BigImage,
+                            LargeImageText = BigImageText,
+                            SmallImageKey = SmallImage,
+                            SmallImageText = SmallImageText
+                        }
+                    });
+                }
+                else if (AppID == null)
                 {
-                    Details = Details,
-                    State = State,
-                    Timestamps = Timestamps.Now,
-                    Party = new Party()
+                    this.Dispatcher.Invoke(() =>
                     {
-                        ID = "justTextForWorkAPrtySystem",
-                        Size = PartySizeMin,
-                        Max = PartySizeMax
-                    },
-                    Assets = new Assets()
-                    {
-                        LargeImageKey = BigImage,
-                        LargeImageText = BigImageText,
-                        SmallImageKey = SmallImage,
-                        SmallImageText = SmallImageText
-                    }
-                });
-            }
-            else if (AppID == null)
-            {
-
-            }
-
+                        this.ConsoleTextBox.Text += $"[ERROR] Enter Client ID before starting\n";
+                    });
+                }
+            });
+            thread.IsBackground = true;
+            thread.Start();
         }
 
-        void Update()
+        private void OnReady(object sender, ReadyMessage args)
         {
-            //Invoke the events once per-frame. The events will be executed on calling thread.
-            Client.Invoke();
+            this.Dispatcher.Invoke(() =>
+            {
+                this.ConsoleTextBox.Text += $"[INFO] Setting connection with user {args.User.Username}...\n";
+            });
         }
 
         private void DetailsNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -300,6 +356,10 @@ namespace CustomRPCMaker
         {
             if (!IsParty)
             {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] Party size field ENABLED\n";
+                });
                 PartySizeMinTextBox.IsEnabled = true;
                 PartySizeMaxTextBox.IsEnabled = true;
                 IsParty = true;
@@ -307,6 +367,10 @@ namespace CustomRPCMaker
             }
             else
             {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] Party size field DISABLED\n";
+                });
                 PartySizeMinTextBox.IsEnabled = false;
                 PartySizeMaxTextBox.IsEnabled = false;
                 IsParty = false;
@@ -316,19 +380,30 @@ namespace CustomRPCMaker
 
         private void PartySizeMinTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (PartySizeMinTextBox.Text.Length < 1)
+            try
             {
-                PartySizeMin = 0;
-                PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+                if (PartySizeMinTextBox.Text.Length < 1)
+                {
+                    PartySizeMin = 0;
+                    PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+                }
+                else if (Convert.ToInt32(PartySizeMinTextBox.Text) > 999)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                else
+                {
+                    PartySizeMin = Convert.ToInt32(PartySizeMinTextBox.Text);
+                    PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+                }
             }
-            else if (Convert.ToInt32(PartySizeMinTextBox.Text) > 999)
+            catch
             {
                 PartySizeMinTextBox.Text = null;
-            }
-            else
-            {
-                PartySizeMin = Convert.ToInt32(PartySizeMinTextBox.Text);
-                PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[ERROR] Party size value too big!\n";
+                });
             }
         }
 
@@ -340,20 +415,87 @@ namespace CustomRPCMaker
 
         private void PartySizeMaxTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (PartySizeMaxTextBox.Text.Length < 1)
+            try
             {
-                PartySizeMax = 0;
-                PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+                if (PartySizeMaxTextBox.Text.Length < 1)
+                {
+                    PartySizeMax = 0;
+                    PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+                }
+                else if (Convert.ToInt32(PartySizeMaxTextBox.Text) > 999)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                else
+                {
+                    PartySizeMax = Convert.ToInt32(PartySizeMaxTextBox.Text);
+                    PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+                }
             }
-            else if (Convert.ToInt32(PartySizeMaxTextBox.Text) > 999)
+            catch
             {
                 PartySizeMaxTextBox.Text = null;
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[ERROR] Party size value too big!\n";
+                });
             }
-            else
+        }
+
+        private void TimestampStartTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            try
             {
-                PartySizeMax = Convert.ToInt32(PartySizeMaxTextBox.Text);
-                PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
-            }  
+                if (TimestampStartTextBox.Text.Length < 1)
+                {
+                    TimestampStart = 0;
+                }
+                else if (Convert.ToDouble(TimestampStartTextBox.Text) > 2147483648)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                else
+                {
+                   
+                    TimestampStart = Convert.ToDouble(TimestampStartTextBox.Text);
+                }
+            }
+            catch
+            {
+                TimestampStartTextBox.Text = null;
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[ERROR] Timestamp value too big!\n";
+                });
+            }
+        }
+
+        private void TimestampEndTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            try
+            {
+                if (TimestampEndTextBox.Text.Length < 1)
+                {
+                    TimestampEnd = 0;
+                }
+                else if (Convert.ToDouble(TimestampEndTextBox.Text) > 2147483647)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                else
+                {
+
+                    TimestampEnd = Convert.ToDouble(TimestampEndTextBox.Text);
+                }
+            }
+            catch
+            {
+                TimestampEndTextBox.Text = null;
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[ERROR] Timestamp value too big!\n";
+                });
+            }
         }
     }
 }
