@@ -39,7 +39,6 @@ namespace CustomRPCMaker
         public bool ConfigIsBigImageText = false;
         public bool ConfigIsSmallImageText = false;
         public bool ConfigIsParty = false;
-        public bool ConfigIsStarted = false;
     }
 
     public partial class MainWindow : Window
@@ -248,8 +247,7 @@ namespace CustomRPCMaker
                   ConfigIsSmallImageName = false,
                   ConfigIsBigImageText = false,
                   ConfigIsSmallImageText = false,
-                  ConfigIsParty = false,
-                  ConfigIsStarted = false
+                  ConfigIsParty = false
             };
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -269,6 +267,31 @@ namespace CustomRPCMaker
             {
                 LoadPathConfigTextBox.Text = openFileDialog.FileName;
             }
+
+            Config loadConfig = JsonConvert.DeserializeObject<Config>(File.ReadAllText(openFileDialog.FileName));
+
+            this.Dispatcher.Invoke(() =>
+            {
+                ClientIDBox.Password = loadConfig.ConfigAppID;
+                DetailsNameTextBox.Text = loadConfig.ConfigDetails;
+                StateNameTextBox.Text = loadConfig.ConfigState;
+                BigImageNameTextBox.Text = loadConfig.ConfigBigImage;
+                SmallImageNameTextBox.Text = loadConfig.ConfigSmallImage;
+                BigImageTextTextBox.Text = loadConfig.ConfigBigImageText;
+                SmallImageTextTextBox.Text = loadConfig.ConfigSmallImageText;
+                PartySizeMinTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMin);
+                PartySizeMaxTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMax);
+                TimestampStartTextBox.Text = Convert.ToString(loadConfig.ConfigTimestampStart);
+                TimestampEndTextBox.Text = Convert.ToString(loadConfig.ConfigTimestampEnd);
+                IsDetails = loadConfig.ConfigIsDetails;
+                IsState = loadConfig.ConfigIsState;
+                IsTimestamp = loadConfig.ConfigIsTimestamp;
+                IsBigImageName = loadConfig.ConfigIsBigImageName;
+                IsSmallImageName = loadConfig.ConfigIsSmallImageName;
+                IsBigImageText = loadConfig.ConfigIsBigImageText;
+                IsSmallImageText = loadConfig.ConfigIsSmallImageText;
+                IsParty = loadConfig.ConfigIsParty;
+            });
         }
 
         private void Footer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -291,6 +314,7 @@ namespace CustomRPCMaker
                         Client.OnPresenceUpdate += OnPresenceUpdate;
                         Client.OnConnectionFailed += OnConnectionFailed;
                         Client.OnConnectionEstablished += OnConnectionEstablished;
+                        Client.OnClose += OnClose;
 
                         Client.SetPresence(new RichPresence()
                         {
@@ -317,13 +341,23 @@ namespace CustomRPCMaker
                                 SmallImageText = SmallImageText
                             }
                         });
+                        IsStarted = true;
+                    }
+                    else
+                    {
+                        Client.Dispose();
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            this.ConsoleTextBox.Text += $"[INFO] Discord RPC connection closed\n";
+                        });
+                        IsStarted = false;
                     }
                 }
                 catch
                 {
                     this.Dispatcher.Invoke(() =>
                     {
-                        this.ConsoleTextBox.Text += $"[ERROR] Enter Client ID before starting\n";
+                        this.ConsoleTextBox.Text += $"[ERROR] Enter Client ID before starting!\n";
                     });
                 }
             });
@@ -331,11 +365,19 @@ namespace CustomRPCMaker
             thread.Start();
         }
 
+        private void OnClose(object sender, CloseMessage args)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                this.ConsoleTextBox.Text += $"[INFO] Discord RPC connection closed\n";
+            });
+        }
+
         private void OnConnectionEstablished(object sender, ConnectionEstablishedMessage args)
         {
             this.Dispatcher.Invoke(() =>
             {
-                this.ConsoleTextBox.Text += $"[INFO] Discord connection successfully established\n";
+                this.ConsoleTextBox.Text += $"[INFO] Discord connection successfully established!\n";
             });
         }
 
@@ -343,7 +385,7 @@ namespace CustomRPCMaker
         {
             this.Dispatcher.Invoke(() =>
             {
-                this.ConsoleTextBox.Text += $"[ERROR] Failed to connect Discord, run application and try again\n";
+                this.ConsoleTextBox.Text += $"[ERROR] Failed to connect Discord, run application and try again...\n";
             });
         }
 
@@ -351,7 +393,7 @@ namespace CustomRPCMaker
         {
             this.Dispatcher.Invoke(() =>
             {
-                this.ConsoleTextBox.Text += $"[INFO] Discord RPC successfully updated\n";
+                this.ConsoleTextBox.Text += $"[INFO] Discord RPC successfully updated!\n";
             });
         }
 
@@ -359,7 +401,7 @@ namespace CustomRPCMaker
         {
             this.Dispatcher.Invoke(() =>
             {
-                this.ConsoleTextBox.Text += $"[INFO] Setting connection with user {args.User.Username}...\n";
+                this.ConsoleTextBox.Text += $"[INFO] RPC client ready to work with user {args.User.Username}!\n";
             });
         }
 
