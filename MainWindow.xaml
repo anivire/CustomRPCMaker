@@ -8,6 +8,63 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Discord RPC Maker" Height="720" Width="1280" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Window.Resources>
+        <Storyboard x:Key="Start">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="StartRPCButton">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.736"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1.014"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="StartRPCButton">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.736"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1.014"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Reload">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="ReloadRPC">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.736"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.986"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="ReloadRPC">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.736"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.986"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="ReloadRPC">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Help">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="HelpButton">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.757"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.993"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="HelpButton">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.757"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.993"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown" SourceName="StartRPCButton">
+            <BeginStoryboard x:Name="Start_BeginStoryboard" Storyboard="{StaticResource Start}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown" SourceName="ReloadRPC">
+            <BeginStoryboard x:Name="Reload_BeginStoryboard" Storyboard="{StaticResource Reload}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown" SourceName="HelpButton">
+            <BeginStoryboard x:Name="Help_BeginStoryboard" Storyboard="{StaticResource Help}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard x:Name="Help_BeginStoryboard1" Storyboard="{StaticResource Help}"/>
+        </EventTrigger>
+    </Window.Triggers>
     <Grid x:Name="MainWorkingWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="1280">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -95,9 +152,36 @@
         <Label x:Name="DetailsTextPreview" Content="Details text" HorizontalAlignment="Left" Margin="647,178,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
         <Label x:Name="StateTextPreview" Content="State text" HorizontalAlignment="Left" Margin="647,195,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
         <Label x:Name="TimestampPreview" Content="00:00 left" HorizontalAlignment="Left" Margin="647,212,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="14" Foreground="White"/>
-        <Image x:Name="StartRPCButton" HorizontalAlignment="Left" Height="36" Margin="1174,129,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_power_settings_new_white_36dp.png" Stretch="Fill" Cursor="Hand" MouseLeftButtonDown="StartRPCButton_MouseLeftButtonDown"/>
-        <Image HorizontalAlignment="Left" Height="36" Margin="1174,183,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_autorenew_white_36dp.png" Stretch="Fill" Cursor="Hand"/>
-        <Image x:Name="HelpButton" HorizontalAlignment="Left" Height="36" Margin="1174,238,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_help_center_white_36dp.png" Stretch="Fill" Cursor="Hand" ToolTip="Open wiki on Github for help."/>
+        <Image x:Name="StartRPCButton" HorizontalAlignment="Left" Height="36" Margin="1174,129,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_power_settings_new_white_36dp.png" Stretch="Fill" Cursor="Hand" MouseLeftButtonDown="StartRPCButton_MouseLeftButtonDown" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="ReloadRPC" HorizontalAlignment="Left" Height="36" Margin="1174,183,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_autorenew_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="HelpButton" HorizontalAlignment="Left" Height="36" Margin="1174,238,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_help_center_white_36dp.png" Stretch="Fill" Cursor="Hand" ToolTip="Open wiki on Github for help." RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
         <TextBox x:Name="DetailsNameTextBox" HorizontalAlignment="Left" Height="28" Margin="238,108,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="DetailsNameTextBox_TextChanged" MaxLines="128">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
