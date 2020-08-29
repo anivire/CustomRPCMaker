@@ -2,8 +2,10 @@
 using DiscordRPC.Message;
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -14,6 +16,32 @@ using System.Windows.Media.Imaging;
 
 namespace CustomRPCMaker
 {
+    // please don't punch me for this code idk how make this easier
+    public class Config
+    {
+        public string ConfigAppID { get; set; }
+        public string ConfigDetails { get; set; }
+        public string ConfigState { get; set; }
+        public string ConfigBigImage { get; set; }
+        public string ConfigSmallImage { get; set; }
+        public string ConfigBigImageText { get; set; }
+        public string ConfigSmallImageText { get; set; }
+        public int ConfigPartySizeMin { get; set; }
+        public int ConfigPartySizeMax { get; set; }
+        public double ConfigTimestampStart { get; set; }
+        public double ConfigTimestampEnd { get; set; }
+
+        public bool ConfigIsDetails = false;
+        public bool ConfigIsState = false;
+        public bool ConfigIsTimestamp = false;
+        public bool ConfigIsBigImageName = false;
+        public bool ConfigIsSmallImageName = false;
+        public bool ConfigIsBigImageText = false;
+        public bool ConfigIsSmallImageText = false;
+        public bool ConfigIsParty = false;
+        public bool ConfigIsStarted = false;
+    }
+
     public partial class MainWindow : Window
     {
         public DiscordRpcClient Client { get; private set; }
@@ -200,7 +228,36 @@ namespace CustomRPCMaker
 
         private void ChooseSavePathButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            Config config = new Config()
+            {
+                  ConfigAppID = AppID,
+                  ConfigDetails = Details,
+                  ConfigState = State,
+                  ConfigBigImage = BigImage,
+                  ConfigSmallImage = SmallImage,
+                  ConfigBigImageText = BigImageText,
+                  ConfigSmallImageText = SmallImageText,
+                  ConfigPartySizeMin = PartySizeMin,
+                  ConfigPartySizeMax = PartySizeMax,
+                  ConfigTimestampStart = TimestampStart,
+                  ConfigTimestampEnd = TimestampEnd,
+                  ConfigIsDetails = false,
+                  ConfigIsState = false,
+                  ConfigIsTimestamp = false,
+                  ConfigIsBigImageName = false,
+                  ConfigIsSmallImageName = false,
+                  ConfigIsBigImageText = false,
+                  ConfigIsSmallImageText = false,
+                  ConfigIsParty = false,
+                  ConfigIsStarted = false
+            };
 
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = " Config files (*.json) | *.json";
+            if (saveFileDialog.ShowDialog() == true)
+                File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(config, Formatting.Indented));
+
+            SavePathConfigTextBox.Text = saveFileDialog.FileName;
         }
 
         private void ChooseLoadPathButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -223,40 +280,46 @@ namespace CustomRPCMaker
         {
             Thread thread = new Thread(() =>
             {
-                if (!IsStarted && AppID != null)
+                try
                 {
-                    Client = new DiscordRpcClient(AppID);
-                    Client.Initialize();
-
-                    Client.OnReady += OnReady;
-
-                    Client.SetPresence(new RichPresence()
+                    if (!IsStarted)
                     {
-                        Details = Details,
-                        State = State,
-                        Timestamps = new Timestamps()
+                        Client = new DiscordRpcClient(AppID);
+                        Client.Initialize();
+
+                        Client.OnReady += OnReady;
+                        Client.OnPresenceUpdate += OnPresenceUpdate;
+                        Client.OnConnectionFailed += OnConnectionFailed;
+                        Client.OnConnectionEstablished += OnConnectionEstablished;
+
+                        Client.SetPresence(new RichPresence()
                         {
-                            StartUnixMilliseconds = (ulong)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1,
-                                DateTime.Now.Hour,
-                                DateTime.Now.Minute,
-                                DateTime.Now.Second))).TotalSeconds,
-                        },
-                        Party = new Party()
-                        {
-                            ID = "justTextForWorkAPrtySystem",
-                            Size = PartySizeMin,
-                            Max = PartySizeMax
-                        },
-                        Assets = new Assets()
-                        {
-                            LargeImageKey = BigImage,
-                            LargeImageText = BigImageText,
-                            SmallImageKey = SmallImage,
-                            SmallImageText = SmallImageText
-                        }
-                    });
+                            Details = Details,
+                            State = State,
+                            Timestamps = new Timestamps()
+                            {
+                                StartUnixMilliseconds = (ulong)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1,
+                                    DateTime.Now.Hour,
+                                    DateTime.Now.Minute,
+                                    DateTime.Now.Second))).TotalSeconds,
+                            },
+                            Party = new Party()
+                            {
+                                ID = "justTextForWorkAPrtySystem",
+                                Size = PartySizeMin,
+                                Max = PartySizeMax
+                            },
+                            Assets = new Assets()
+                            {
+                                LargeImageKey = BigImage,
+                                LargeImageText = BigImageText,
+                                SmallImageKey = SmallImage,
+                                SmallImageText = SmallImageText
+                            }
+                        });
+                    }
                 }
-                else if (AppID == null)
+                catch
                 {
                     this.Dispatcher.Invoke(() =>
                     {
@@ -266,6 +329,30 @@ namespace CustomRPCMaker
             });
             thread.IsBackground = true;
             thread.Start();
+        }
+
+        private void OnConnectionEstablished(object sender, ConnectionEstablishedMessage args)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                this.ConsoleTextBox.Text += $"[INFO] Discord connection successfully established\n";
+            });
+        }
+
+        private void OnConnectionFailed(object sender, ConnectionFailedMessage args)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                this.ConsoleTextBox.Text += $"[ERROR] Failed to connect Discord, run application and try again\n";
+            });
+        }
+
+        private void OnPresenceUpdate(object sender, PresenceMessage args)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                this.ConsoleTextBox.Text += $"[INFO] Discord RPC successfully updated\n";
+            });
         }
 
         private void OnReady(object sender, ReadyMessage args)
@@ -494,6 +581,45 @@ namespace CustomRPCMaker
                 this.Dispatcher.Invoke(() =>
                 {
                     this.ConsoleTextBox.Text += $"[ERROR] Timestamp value too big!\n";
+                });
+            }
+        }
+
+        private void ReloadRPC_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Client.SetPresence(new RichPresence()
+                {
+                    Details = Details,
+                    State = State,
+                    Timestamps = new Timestamps()
+                    {
+                        StartUnixMilliseconds = (ulong)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1,
+                                DateTime.Now.Hour,
+                                DateTime.Now.Minute,
+                                DateTime.Now.Second))).TotalSeconds,
+                    },
+                    Party = new Party()
+                    {
+                        ID = "justTextForWorkAPrtySystem",
+                        Size = PartySizeMin,
+                        Max = PartySizeMax
+                    },
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = BigImage,
+                        LargeImageText = BigImageText,
+                        SmallImageKey = SmallImage,
+                        SmallImageText = SmallImageText
+                    }
+                });
+            }
+            catch
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[ERROR] Enter Client ID before starting\n";
                 });
             }
         }

@@ -162,7 +162,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="ReloadRPC" HorizontalAlignment="Left" Height="36" Margin="1174,183,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_autorenew_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.5,0.5">
+        <Image x:Name="ReloadRPC" HorizontalAlignment="Left" Height="36" Margin="1174,183,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_autorenew_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.5,0.5" MouseLeftButtonDown="ReloadRPC_MouseLeftButtonDown">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -237,10 +237,7 @@
         <Image HorizontalAlignment="Left" Height="36" Margin="946,394,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_folder_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514"/>
         <Image x:Name="HiddenBigImageText" HorizontalAlignment="Left" Height="99" Margin="528,163,0,0" VerticalAlignment="Top" Width="98" Source="ui_assets/discord_big_image.png" Stretch="Fill"/>
         <Image x:Name="HiddenSmallImageText" HorizontalAlignment="Left" Height="36" Margin="602,236,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/discord_small_image.png" Stretch="Fill"/>
-        <PasswordBox x:Name="ClientIDBox" HorizontalAlignment="Left" BorderThickness="0" Margin="152,569,0,0" VerticalAlignment="Top" Width="290" Height="28" BorderBrush="#00000000" Foreground="White" SelectionBrush="#FF5983E4" VerticalContentAlignment="Center" Padding="5,0,0,0" PasswordChanged="ClientIDBox_PasswordChanged">
-            <PasswordBox.Background>
-                <ImageBrush ImageSource="ui_assets/text_rect.png"/>
-            </PasswordBox.Background>
+        <PasswordBox x:Name="ClientIDBox" HorizontalAlignment="Left" BorderThickness="0" Margin="152,569,0,0" VerticalAlignment="Top" Width="290" Height="28" BorderBrush="#00000000" Foreground="White" SelectionBrush="#FF5983E4" VerticalContentAlignment="Center" Padding="5,0,0,0" PasswordChanged="ClientIDBox_PasswordChanged" Background="#FF24262B">
             <PasswordBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </PasswordBox.OpacityMask>
