@@ -67,6 +67,8 @@ namespace CustomRPCMaker
         public bool IsParty = false;
         public bool IsStarted = false;
 
+        public bool IsConfigLoaded { get; set;}
+
         public MainWindow()
         {
             InitializeComponent();
@@ -109,7 +111,7 @@ namespace CustomRPCMaker
 
         private void DetailsButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!IsDetails)
+            if (IsDetails == false)
             {
                 this.Dispatcher.Invoke(() =>
                 {
@@ -133,7 +135,7 @@ namespace CustomRPCMaker
 
         private void StateButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!IsState)
+            if (IsState == false)
             {
                 this.Dispatcher.Invoke(() =>
                 {
@@ -157,7 +159,7 @@ namespace CustomRPCMaker
 
         private void TimestampButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!IsTimestamp)
+            if (IsTimestamp == false)
             {
                 TimestampStartTextBox.IsEnabled = true;
                 TimestampEndTextBox.IsEnabled = true;
@@ -175,7 +177,7 @@ namespace CustomRPCMaker
 
         private void BigImageButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!IsBigImageName)
+            if (IsBigImageName == false)
             {
                 this.Dispatcher.Invoke(() =>
                 {
@@ -201,7 +203,7 @@ namespace CustomRPCMaker
 
         private void SmallImageButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!IsSmallImageName)
+            if (IsSmallImageName == false)
             {
                 this.Dispatcher.Invoke(() =>
                 {
@@ -225,6 +227,32 @@ namespace CustomRPCMaker
             }
         }
 
+        private void PartyButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (IsParty == false)
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] Party size field ENABLED\n";
+                });
+                PartySizeMinTextBox.IsEnabled = true;
+                PartySizeMaxTextBox.IsEnabled = true;
+                IsParty = true;
+                PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+            }
+            else
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[LOG] Party size field DISABLED\n";
+                });
+                PartySizeMinTextBox.IsEnabled = false;
+                PartySizeMaxTextBox.IsEnabled = false;
+                IsParty = false;
+                PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
+            }
+        }
+
         private void ChooseSavePathButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Config config = new Config()
@@ -240,14 +268,14 @@ namespace CustomRPCMaker
                   ConfigPartySizeMax = PartySizeMax,
                   ConfigTimestampStart = TimestampStart,
                   ConfigTimestampEnd = TimestampEnd,
-                  ConfigIsDetails = false,
-                  ConfigIsState = false,
-                  ConfigIsTimestamp = false,
-                  ConfigIsBigImageName = false,
-                  ConfigIsSmallImageName = false,
-                  ConfigIsBigImageText = false,
-                  ConfigIsSmallImageText = false,
-                  ConfigIsParty = false
+                  ConfigIsDetails = IsDetails,
+                  ConfigIsState = IsState,
+                  ConfigIsTimestamp = IsTimestamp,
+                  ConfigIsBigImageName = IsBigImageName,
+                  ConfigIsSmallImageName = IsSmallImageName,
+                  ConfigIsBigImageText = IsBigImageText,
+                  ConfigIsSmallImageText = IsSmallImageText,
+                  ConfigIsParty = IsParty
             };
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -260,38 +288,146 @@ namespace CustomRPCMaker
 
         private void ChooseLoadPathButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = " Config files (*.json) | *.json";
-
-            if (openFileDialog.ShowDialog() == true)
+            try
             {
-                LoadPathConfigTextBox.Text = openFileDialog.FileName;
+                ClearButton_MouseLeftButtonDown(sender, e);
+
+                IsConfigLoaded = true;
+
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = " Config files (*.json) | *.json";
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    LoadPathConfigTextBox.Text = openFileDialog.FileName;
+                }
+
+                Config loadConfig = JsonConvert.DeserializeObject<Config>(File.ReadAllText(openFileDialog.FileName));
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    ClientIDBox.Password = loadConfig.ConfigAppID;
+                    DetailsNameTextBox.Text = loadConfig.ConfigDetails;
+                    StateNameTextBox.Text = loadConfig.ConfigState;
+                    BigImageNameTextBox.Text = loadConfig.ConfigBigImage;
+                    SmallImageNameTextBox.Text = loadConfig.ConfigSmallImage;
+                    BigImageTextTextBox.Text = loadConfig.ConfigBigImageText;
+                    SmallImageTextTextBox.Text = loadConfig.ConfigSmallImageText;
+                    PartySizeMinTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMin);
+                    PartySizeMaxTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMax);
+                    TimestampStartTextBox.Text = Convert.ToString(loadConfig.ConfigTimestampStart);
+                    TimestampEndTextBox.Text = Convert.ToString(loadConfig.ConfigTimestampEnd);
+                    IsDetails = loadConfig.ConfigIsDetails;
+                    IsState = loadConfig.ConfigIsState;
+                    IsTimestamp = loadConfig.ConfigIsTimestamp;
+                    IsBigImageName = loadConfig.ConfigIsBigImageName;
+                    IsSmallImageName = loadConfig.ConfigIsSmallImageName;
+                    IsBigImageText = loadConfig.ConfigIsBigImageText;
+                    IsSmallImageText = loadConfig.ConfigIsSmallImageText;
+                    IsParty = loadConfig.ConfigIsParty;
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        if (IsDetails)
+                        {
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.ConsoleTextBox.Text += $"[LOG] Details field ENABLED\n";
+                            });
+                            DetailsNameTextBox.IsEnabled = true;
+                            DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                        }
+                        else
+                        {
+                            DetailsButton_MouseLeftButtonDown(sender, e);
+                        }
+
+                        if (IsState)
+                        {
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.ConsoleTextBox.Text += $"[LOG] State field ENABLED\n";
+                            });
+                            StateNameTextBox.IsEnabled = true;
+                            StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                        }
+                        else
+                        {
+                            StateButton_MouseLeftButtonDown(sender, e);
+                        }
+
+                        if (IsTimestamp)
+                        {
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.ConsoleTextBox.Text += $"[LOG] Timestamp field ENABLED\n";
+                            });
+                            TimestampStartTextBox.IsEnabled = true;
+                            TimestampEndTextBox.IsEnabled = true;
+                            TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                        }
+                        else
+                        {
+                            TimestampButton_MouseLeftButtonDown(sender, e);
+                        }
+
+                        if (IsBigImageName)
+                        {
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                            });
+                            BigImageNameTextBox.IsEnabled = true;
+                            BigImageTextTextBox.IsEnabled = true;
+                            BigImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                        }
+                        else
+                        {
+                            BigImageButton_MouseLeftButtonDown(sender, e);
+                        }
+
+                        if (IsSmallImageName)
+                        {
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                            });
+                            SmallImageNameTextBox.IsEnabled = true;
+                            SmallImageTextTextBox.IsEnabled = true;
+                            IsSmallImageName = true;
+                            SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                        }
+                        else
+                        {
+                            SmallImageButton_MouseLeftButtonDown(sender, e);
+                        }
+
+                        if (IsParty)
+                        {
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.ConsoleTextBox.Text += $"[LOG] Party size field ENABLED\n";
+                            });
+                            PartySizeMinTextBox.IsEnabled = true;
+                            PartySizeMaxTextBox.IsEnabled = true;
+                            PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                        }
+                        else
+                        {
+                            PartyButton_MouseLeftButtonDown(sender, e);
+                        }
+
+                        this.ConsoleTextBox.Text += $"[INFO] Config successfully loaded!\n";
+                    });
+                });
             }
-
-            Config loadConfig = JsonConvert.DeserializeObject<Config>(File.ReadAllText(openFileDialog.FileName));
-
-            this.Dispatcher.Invoke(() =>
+            catch
             {
-                ClientIDBox.Password = loadConfig.ConfigAppID;
-                DetailsNameTextBox.Text = loadConfig.ConfigDetails;
-                StateNameTextBox.Text = loadConfig.ConfigState;
-                BigImageNameTextBox.Text = loadConfig.ConfigBigImage;
-                SmallImageNameTextBox.Text = loadConfig.ConfigSmallImage;
-                BigImageTextTextBox.Text = loadConfig.ConfigBigImageText;
-                SmallImageTextTextBox.Text = loadConfig.ConfigSmallImageText;
-                PartySizeMinTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMin);
-                PartySizeMaxTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMax);
-                TimestampStartTextBox.Text = Convert.ToString(loadConfig.ConfigTimestampStart);
-                TimestampEndTextBox.Text = Convert.ToString(loadConfig.ConfigTimestampEnd);
-                IsDetails = loadConfig.ConfigIsDetails;
-                IsState = loadConfig.ConfigIsState;
-                IsTimestamp = loadConfig.ConfigIsTimestamp;
-                IsBigImageName = loadConfig.ConfigIsBigImageName;
-                IsSmallImageName = loadConfig.ConfigIsSmallImageName;
-                IsBigImageText = loadConfig.ConfigIsBigImageText;
-                IsSmallImageText = loadConfig.ConfigIsSmallImageText;
-                IsParty = loadConfig.ConfigIsParty;
-            });
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[ERROR] Error while config file loading!\n";
+                });
+            }
         }
 
         private void Footer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -481,32 +617,6 @@ namespace CustomRPCMaker
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void PartyButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (!IsParty)
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.ConsoleTextBox.Text += $"[LOG] Party size field ENABLED\n";
-                });
-                PartySizeMinTextBox.IsEnabled = true;
-                PartySizeMaxTextBox.IsEnabled = true;
-                IsParty = true;
-                PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
-            }
-            else
-            {
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.ConsoleTextBox.Text += $"[LOG] Party size field DISABLED\n";
-                });
-                PartySizeMinTextBox.IsEnabled = false;
-                PartySizeMaxTextBox.IsEnabled = false;
-                IsParty = false;
-                PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
-            }
-        }
-
         private void PartySizeMinTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             try
@@ -664,6 +774,47 @@ namespace CustomRPCMaker
                     this.ConsoleTextBox.Text += $"[ERROR] Enter Client ID before starting\n";
                 });
             }
+        }
+
+        private void ClearButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DetailsNameTextBox.Text = String.Empty;
+            StateNameTextBox.Text = String.Empty;
+            TimestampStartTextBox.Text = String.Empty;
+            TimestampEndTextBox.Text = String.Empty;
+            BigImageNameTextBox.Text = String.Empty;
+            SmallImageNameTextBox.Text = String.Empty;
+            BigImageTextTextBox.Text = String.Empty;
+            SmallImageTextTextBox.Text = String.Empty;
+            PartySizeMinTextBox.Text = String.Empty;
+            PartySizeMaxTextBox.Text = String.Empty;
+            ClientIDBox.Password = String.Empty;
+
+            AppID = String.Empty;
+            Details = String.Empty;
+            State = String.Empty;
+            BigImage = String.Empty;
+            SmallImage = String.Empty;
+            BigImageText = String.Empty;
+            SmallImageText = String.Empty;
+            PartySizeMin = 0;
+            PartySizeMax = 0;
+            TimestampStart = 0;
+            TimestampEnd = 0;
+
+            IsDetails = false;
+            IsState = false;
+            IsTimestamp = false;
+            IsBigImageName = false;
+            IsSmallImageName = false;
+            IsBigImageText = false;
+            IsSmallImageText = false;
+            IsParty = false;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                this.ConsoleTextBox.Text += $"[LOG] All fields cleared\n";
+            });
         }
     }
 }

@@ -291,5 +291,7 @@
         <Label Content="Display elapsed time" HorizontalAlignment="Left" Margin="59,615,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
         <Label Content="in timestamp" HorizontalAlignment="Left" Margin="331,619,0,0" VerticalAlignment="Top" FontFamily="Montserrat" FontSize="20" Foreground="White"/>
         <Image HorizontalAlignment="Left" Height="36" Margin="21,617,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand"/>
+        <Image x:Name="ClearButton" HorizontalAlignment="Left" Height="36" Margin="426,435,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_delete_white_36dp.png" Stretch="Fill" Cursor="Hand" MouseLeftButtonDown="ClearButton_MouseLeftButtonDown"/>
+        <Label Content="Clear" HorizontalAlignment="Left" Margin="350,433,0,0" VerticalAlignment="Top" FontFamily="Montserrat ExtraBold" FontSize="24" Foreground="White"/>
     </Grid>
 </Window>

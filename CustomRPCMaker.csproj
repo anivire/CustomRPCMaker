@@ -210,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Resource Include="ui_assets\icons\baseline_delete_white_36dp.png" />
     <Resource Include="ui_assets\console_splash.png" />
     <Resource Include="ui_assets\icons\baseline_add_to_queue_white_36dp.png" />
     <Resource Include="ui_assets\icons\baseline_link_white_36dp.png" />
