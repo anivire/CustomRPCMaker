@@ -47,6 +47,7 @@ namespace CustomRPCMaker
         public bool ConfigEnableAppCheck = false;
         public bool ConfigIsElapsedTimeOn = false;
         public bool ConfigIsCurrentTimeOn = false;
+        public string ConfigPath { get; set; }
     }
 
     public partial class MainWindow : Window
@@ -93,6 +94,8 @@ namespace CustomRPCMaker
                 this.ConsoleTextBox.Text += $"[INFO] Change RPC settings in left box\n";
             });
 
+            Settings loadConfig = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(Environment.CurrentDirectory + @"\AppConfig.json"));
+
             if (!File.Exists(Environment.CurrentDirectory + @"\AppConfig.json"))
             {
                 Settings settingsConfig = new Settings
@@ -101,14 +104,131 @@ namespace CustomRPCMaker
                     ConfigIsAutoLoadCheck = false,
                     ConfigEnableAppCheck = false,
                     ConfigIsElapsedTimeOn = false,
-                    ConfigIsCurrentTimeOn = false
+                    ConfigIsCurrentTimeOn = false,
+                    ConfigPath = String.Empty
                 };
 
                 File.WriteAllText(Environment.CurrentDirectory + @"\AppConfig.json", JsonConvert.SerializeObject(settingsConfig, Formatting.Indented));
             }
             else
             {
+                try
+                {
+                    if (loadConfig.ConfigIsAutoLoadCheck)
+                    {
+                        IsAutoLoadCheck = true;
+                        AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_white_36dp.png"));
 
+                        Config config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(loadConfig.ConfigPath));
+
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            ClientIDBox.Password = config.ConfigAppID;
+                            DetailsNameTextBox.Text = config.ConfigDetails;
+                            StateNameTextBox.Text = config.ConfigState;
+                            BigImageNameTextBox.Text = config.ConfigBigImage;
+                            SmallImageNameTextBox.Text = config.ConfigSmallImage;
+                            BigImageTextTextBox.Text = config.ConfigBigImageText;
+                            SmallImageTextTextBox.Text = config.ConfigSmallImageText;
+                            PartySizeMinTextBox.Text = Convert.ToString(config.ConfigPartySizeMin);
+                            PartySizeMaxTextBox.Text = Convert.ToString(config.ConfigPartySizeMax);
+                            TimestampStartTextBox.Text = Convert.ToString(config.ConfigTimestampStart);
+                            TimestampEndTextBox.Text = Convert.ToString(config.ConfigTimestampEnd);
+                            IsDetails = config.ConfigIsDetails;
+                            IsState = config.ConfigIsState;
+                            IsTimestamp = config.ConfigIsTimestamp;
+                            IsBigImageName = config.ConfigIsBigImageName;
+                            IsSmallImageName = config.ConfigIsSmallImageName;
+                            IsBigImageText = config.ConfigIsBigImageText;
+                            IsSmallImageText = config.ConfigIsSmallImageText;
+                            IsParty = config.ConfigIsParty;
+
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                if (IsDetails)
+                                {
+                                    this.Dispatcher.Invoke(() =>
+                                    {
+                                        this.ConsoleTextBox.Text += $"[LOG] Details field ENABLED\n";
+                                    });
+                                    DetailsNameTextBox.IsEnabled = true;
+                                    DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                                }
+                                if (IsState)
+                                {
+                                    this.Dispatcher.Invoke(() =>
+                                    {
+                                        this.ConsoleTextBox.Text += $"[LOG] State field ENABLED\n";
+                                    });
+                                    StateNameTextBox.IsEnabled = true;
+                                    StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                                }
+                                if (IsTimestamp)
+                                {
+                                    this.Dispatcher.Invoke(() =>
+                                    {
+                                        this.ConsoleTextBox.Text += $"[LOG] Timestamp field ENABLED\n";
+                                    });
+                                    TimestampStartTextBox.IsEnabled = true;
+                                    TimestampEndTextBox.IsEnabled = true;
+                                    TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                                }
+                                if (IsBigImageName)
+                                {
+                                    this.Dispatcher.Invoke(() =>
+                                    {
+                                        this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                                    });
+                                    BigImageNameTextBox.IsEnabled = true;
+                                    BigImageTextTextBox.IsEnabled = true;
+                                    BigImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                                }
+                                if (IsSmallImageName)
+                                {
+                                    this.Dispatcher.Invoke(() =>
+                                    {
+                                        this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                                    });
+                                    SmallImageNameTextBox.IsEnabled = true;
+                                    SmallImageTextTextBox.IsEnabled = true;
+                                    IsSmallImageName = true;
+                                    SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                                }
+                                if (IsParty)
+                                {
+                                    this.Dispatcher.Invoke(() =>
+                                    {
+                                        this.ConsoleTextBox.Text += $"[LOG] Party size field ENABLED\n";
+                                    });
+                                    PartySizeMinTextBox.IsEnabled = true;
+                                    PartySizeMaxTextBox.IsEnabled = true;
+                                    PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                                }
+
+                                LoadPathConfigTextBox.Text = loadConfig.ConfigPath;
+                                EditPathConfigTextBox.Text = loadConfig.ConfigPath;
+
+                                this.ConsoleTextBox.Text += $"[INFO] Config successfully loaded!\n";
+                            });
+                        });
+                    }
+                }
+                catch
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[ERROR] Error loading Discord RPC config file, it may have been moved!\n";
+
+                        AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
+                        IsAutoLoadCheck = false;
+                    });
+                }
+            }
+
+            if (loadConfig.ConfigIsMinimizeCheck)
+            {
+                IsMinimizeCheck = true;
+                MinimizeToTrayCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_white_36dp.png"));
             }
         }
 
@@ -232,10 +352,6 @@ namespace CustomRPCMaker
                             DetailsNameTextBox.IsEnabled = true;
                             DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
-                        else
-                        {
-                            DetailsButton_MouseLeftButtonDown(sender, e);
-                        }
 
                         if (IsState)
                         {
@@ -247,9 +363,6 @@ namespace CustomRPCMaker
                             StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
                         else
-                        {
-                            StateButton_MouseLeftButtonDown(sender, e);
-                        }
 
                         if (IsTimestamp)
                         {
@@ -262,9 +375,6 @@ namespace CustomRPCMaker
                             TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
                         else
-                        {
-                            TimestampButton_MouseLeftButtonDown(sender, e);
-                        }
 
                         if (IsBigImageName)
                         {
@@ -277,9 +387,6 @@ namespace CustomRPCMaker
                             BigImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
                         else
-                        {
-                            BigImageButton_MouseLeftButtonDown(sender, e);
-                        }
 
                         if (IsSmallImageName)
                         {
@@ -292,10 +399,6 @@ namespace CustomRPCMaker
                             IsSmallImageName = true;
                             SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
-                        else
-                        {
-                            SmallImageButton_MouseLeftButtonDown(sender, e);
-                        }
 
                         if (IsParty)
                         {
@@ -306,10 +409,6 @@ namespace CustomRPCMaker
                             PartySizeMinTextBox.IsEnabled = true;
                             PartySizeMaxTextBox.IsEnabled = true;
                             PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
-                        }
-                        else
-                        {
-                            PartyButton_MouseLeftButtonDown(sender, e);
                         }
 
                         this.ConsoleTextBox.Text += $"[INFO] Config successfully loaded!\n";
@@ -917,7 +1016,8 @@ namespace CustomRPCMaker
                     ConfigIsAutoLoadCheck = tempConfig.ConfigIsAutoLoadCheck,
                     ConfigEnableAppCheck = tempConfig.ConfigEnableAppCheck,
                     ConfigIsElapsedTimeOn = tempConfig.ConfigIsElapsedTimeOn,
-                    ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn
+                    ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn,
+                    ConfigPath = tempConfig.ConfigPath
                 };
 
                 File.WriteAllText(Environment.CurrentDirectory + @"\AppConfig.json", JsonConvert.SerializeObject(settingsConfig, Formatting.Indented));
@@ -939,7 +1039,8 @@ namespace CustomRPCMaker
                     ConfigIsAutoLoadCheck = tempConfig.ConfigIsAutoLoadCheck,
                     ConfigEnableAppCheck = tempConfig.ConfigEnableAppCheck,
                     ConfigIsElapsedTimeOn = tempConfig.ConfigIsElapsedTimeOn,
-                    ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn
+                    ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn,
+                    ConfigPath = tempConfig.ConfigPath
                 };
 
                 File.WriteAllText(Environment.CurrentDirectory + @"\AppConfig.json", JsonConvert.SerializeObject(settingsConfig, Formatting.Indented));
@@ -948,49 +1049,68 @@ namespace CustomRPCMaker
 
         private void AutoLoadConfigCheck_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (IsAutoLoadCheck)
+            try
             {
-                IsAutoLoadCheck = false;
-                AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.ConsoleTextBox.Text += $"[RPC Settings] Auto-load config file DISABLED\n";
-                });
-
                 Settings tempConfig = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(Environment.CurrentDirectory + @"\AppConfig.json"));
 
-                Settings settingsConfig = new Settings
-                {
-                    ConfigIsMinimizeCheck = tempConfig.ConfigIsMinimizeCheck,
-                    ConfigIsAutoLoadCheck = false,
-                    ConfigEnableAppCheck = tempConfig.ConfigEnableAppCheck,
-                    ConfigIsElapsedTimeOn = tempConfig.ConfigIsElapsedTimeOn,
-                    ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn
-                };
+                var newConfigPath = String.Empty;
 
-                File.WriteAllText(Environment.CurrentDirectory + @"\AppConfig.json", JsonConvert.SerializeObject(settingsConfig, Formatting.Indented));
+                if (SavePathConfigTextBox.Text != String.Empty)
+                    newConfigPath = SavePathConfigTextBox.Text;
+                else if (LoadPathConfigTextBox.Text != String.Empty)
+                    newConfigPath = LoadPathConfigTextBox.Text;
+                else if (SavePathConfigTextBox.Text == String.Empty || LoadPathConfigTextBox.Text == String.Empty)
+                    throw new Exception();
+
+                if (IsAutoLoadCheck)
+                {
+                    IsAutoLoadCheck = false;
+                    AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[RPC Settings] Auto-load config file DISABLED\n";
+                    });
+
+                    Settings settingsConfig = new Settings
+                    {
+                        ConfigIsMinimizeCheck = tempConfig.ConfigIsMinimizeCheck,
+                        ConfigIsAutoLoadCheck = false,
+                        ConfigEnableAppCheck = tempConfig.ConfigEnableAppCheck,
+                        ConfigIsElapsedTimeOn = tempConfig.ConfigIsElapsedTimeOn,
+                        ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn,
+                        ConfigPath = null 
+                    }; 
+
+                    File.WriteAllText(Environment.CurrentDirectory + @"\AppConfig.json", JsonConvert.SerializeObject(settingsConfig, Formatting.Indented));
+                }
+                else
+                {
+                    IsAutoLoadCheck = true;
+                    AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_white_36dp.png"));
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[RPC Settings] Auto-load config file ENABLED\n";
+                    });
+
+                    Settings settingsConfig = new Settings
+                    {
+                        ConfigIsMinimizeCheck = tempConfig.ConfigIsMinimizeCheck,
+                        ConfigIsAutoLoadCheck = true,
+                        ConfigEnableAppCheck = tempConfig.ConfigEnableAppCheck,
+                        ConfigIsElapsedTimeOn = tempConfig.ConfigIsElapsedTimeOn,
+                        ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn,
+                        ConfigPath = newConfigPath
+                    };
+
+                    File.WriteAllText(Environment.CurrentDirectory + @"\AppConfig.json", JsonConvert.SerializeObject(settingsConfig, Formatting.Indented));
+                }
             }
-            else
+            catch
             {
-                IsAutoLoadCheck = true;
-                AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_white_36dp.png"));
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[RPC Settings] Auto-load config file ENABLED\n";
+                    this.ConsoleTextBox.Text += $"[ERROR] Save or load config for enable auto-load\n";
                 });
-
-                Settings tempConfig = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(Environment.CurrentDirectory + @"\AppConfig.json"));
-
-                Settings settingsConfig = new Settings
-                {
-                    ConfigIsMinimizeCheck = tempConfig.ConfigIsMinimizeCheck,
-                    ConfigIsAutoLoadCheck = true,
-                    ConfigEnableAppCheck = tempConfig.ConfigEnableAppCheck,
-                    ConfigIsElapsedTimeOn = tempConfig.ConfigIsElapsedTimeOn,
-                    ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn
-                };
-
-                File.WriteAllText(Environment.CurrentDirectory + @"\AppConfig.json", JsonConvert.SerializeObject(settingsConfig, Formatting.Indented));
             }
         }
     }
