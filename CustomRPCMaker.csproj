@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Discord-Logo-Color.ico</ApplicationIcon>
+    <ApplicationIcon>DRPC.Core\Discord-Logo-Color.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>CustomRPCMaker.App</StartupObject>
@@ -82,19 +82,19 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="DRPC.Core\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="DRPC.Core\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="DRPC.Core\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="DRPC.Core\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -103,21 +103,12 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="DRPC.Core\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -125,34 +116,34 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="DRPC.Core\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\background.png" />
+    <Resource Include="DRPC.Core\ui_assets\background.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\footer.png" />
+    <Resource Include="DRPC.Core\ui_assets\footer.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\text_rect.png" />
+    <Resource Include="DRPC.Core\ui_assets\text_rect.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_toggle_off_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_toggle_off_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_tune_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_tune_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_close_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_close_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_minimize_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_minimize_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\discord_splash.png" />
+    <Resource Include="DRPC.Core\ui_assets\discord_splash.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_preview_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_preview_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -167,66 +158,67 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_memory_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_memory_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_settings_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_settings_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_power_settings_new_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_power_settings_new_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_check_box_outline_blank_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_check_box_outline_blank_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_check_box_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_check_box_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\Discord-Logo-Color.ico" />
+    <Resource Include="DRPC.Core\ui_assets\Discord-Logo-Color.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Discord-Logo-Color.ico" />
+    <Resource Include="DRPC.Core\discord-Logo-Color.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_code_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_code_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_folder_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_folder_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_save_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_save_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_autorenew_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_autorenew_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_help_center_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_help_center_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_more_horiz_white_18dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_more_horiz_white_18dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ui_assets\icons\baseline_toggle_on_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_toggle_on_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Resource Include="ui_assets\icons\baseline_open_in_new_white_36dp.png" />
-    <Resource Include="ui_assets\icons\baseline_forward_white_36dp.png" />
-    <Resource Include="ui_assets\icons\baseline_delete_white_36dp.png" />
-    <Resource Include="ui_assets\console_splash.png" />
-    <Resource Include="ui_assets\icons\baseline_add_to_queue_white_36dp.png" />
-    <Resource Include="ui_assets\icons\baseline_link_white_36dp.png" />
-    <Resource Include="ui_assets\Discord_icon_without_borders.png" />
-    <Resource Include="ui_assets\icons\baseline_visibility_white_36dp.png" />
-    <Resource Include="ui_assets\icons\baseline_play_arrow_white_36dp.png" />
-    <Resource Include="ui_assets\icons\baseline_stop_white_36dp.png" />
-    <Resource Include="ui_assets\icons\baseline_query_builder_white_36dp.png" />
-    <Resource Include="ui_assets\discord_big_image.png" />
-    <Resource Include="ui_assets\discord_small_image.png" />
-    <Resource Include="ui_assets\icons\baseline_system_update_alt_white_36dp.png" />
-    <Resource Include="ui_assets\icons\baseline_close_red_36dp.png" />
-    <Resource Include="ui_assets\icons\baseline_help_center_green_36dp.png" />
-    <Resource Include="ui_assets\icons\baseline_power_settings_new_green_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_open_in_new_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_forward_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_delete_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\console_splash.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_add_to_queue_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_link_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\Discord_icon_without_borders.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_visibility_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_play_arrow_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_stop_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_query_builder_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\discord_big_image.png" />
+    <Resource Include="DRPC.Core\ui_assets\discord_small_image.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_system_update_alt_white_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_close_red_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_help_center_green_36dp.png" />
+    <Resource Include="DRPC.Core\ui_assets\icons\baseline_power_settings_new_green_36dp.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

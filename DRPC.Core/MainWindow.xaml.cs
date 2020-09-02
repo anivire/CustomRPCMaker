@@ -1,9 +1,4 @@
-﻿using DiscordRPC;
-using DiscordRPC.Message;
-using Hardcodet.Wpf.TaskbarNotification;
-using Microsoft.Win32;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -13,9 +8,16 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
-namespace CustomRPCMaker
+using DiscordRPC;
+using DiscordRPC.Message;
+
+using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Win32;
+
+using Newtonsoft.Json;
+
+namespace CustomRPCMaker.DRPC.Core
 {
-    // please don't punch me for this code idk how make this easier
     public class Config
     {
         public string ConfigAppID { get; set; }
@@ -85,7 +87,7 @@ namespace CustomRPCMaker
         {
             InitializeComponent();
 
-            TaskbarIcon.Icon = new Icon(@"C:\Users\anivire\source\repos\CustomRPCMaker\ui_assets\Discord-Logo-Color.ico");
+            TaskbarIcon.Icon = new Icon(@"C:\Users\anivire\source\repos\CustomRPCMaker\DRPC.Core\ui_assets\discord-Logo-Color.ico");
             TaskbarIcon.ToolTipText = "Discord RPC Maker";
 
             this.Dispatcher.Invoke(() =>
@@ -117,7 +119,7 @@ namespace CustomRPCMaker
                     if (loadConfig.ConfigIsAutoLoadCheck)
                     {
                         IsAutoLoadCheck = true;
-                        AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_white_36dp.png"));
+                        AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
 
                         Config config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(loadConfig.ConfigPath));
 
@@ -143,73 +145,70 @@ namespace CustomRPCMaker
                             IsSmallImageText = config.ConfigIsSmallImageText;
                             IsParty = config.ConfigIsParty;
 
-                            this.Dispatcher.Invoke(() =>
+                            if (IsDetails)
                             {
-                                if (IsDetails)
+                                this.Dispatcher.Invoke(() =>
                                 {
-                                    this.Dispatcher.Invoke(() =>
-                                    {
-                                        this.ConsoleTextBox.Text += $"[LOG] Details field ENABLED\n";
-                                    });
-                                    DetailsNameTextBox.IsEnabled = true;
-                                    DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
-                                }
-                                if (IsState)
+                                    this.ConsoleTextBox.Text += $"[LOG] Details field ENABLED\n";
+                                });
+                                DetailsNameTextBox.IsEnabled = true;
+                                DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            }
+                            if (IsState)
+                            {
+                                this.Dispatcher.Invoke(() =>
                                 {
-                                    this.Dispatcher.Invoke(() =>
-                                    {
-                                        this.ConsoleTextBox.Text += $"[LOG] State field ENABLED\n";
-                                    });
-                                    StateNameTextBox.IsEnabled = true;
-                                    StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
-                                }
-                                if (IsTimestamp)
+                                    this.ConsoleTextBox.Text += $"[LOG] State field ENABLED\n";
+                                });
+                                StateNameTextBox.IsEnabled = true;
+                                StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            }
+                            if (IsTimestamp)
+                            {
+                                this.Dispatcher.Invoke(() =>
                                 {
-                                    this.Dispatcher.Invoke(() =>
-                                    {
-                                        this.ConsoleTextBox.Text += $"[LOG] Timestamp field ENABLED\n";
-                                    });
-                                    TimestampStartTextBox.IsEnabled = true;
-                                    TimestampEndTextBox.IsEnabled = true;
-                                    TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
-                                }
-                                if (IsBigImageName)
+                                    this.ConsoleTextBox.Text += $"[LOG] Timestamp field ENABLED\n";
+                                });
+                                TimestampStartTextBox.IsEnabled = true;
+                                TimestampEndTextBox.IsEnabled = true;
+                                TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            }
+                            if (IsBigImageName)
+                            {
+                                this.Dispatcher.Invoke(() =>
                                 {
-                                    this.Dispatcher.Invoke(() =>
-                                    {
-                                        this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
-                                    });
-                                    BigImageNameTextBox.IsEnabled = true;
-                                    BigImageTextTextBox.IsEnabled = true;
-                                    BigImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
-                                }
-                                if (IsSmallImageName)
+                                    this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                                });
+                                BigImageNameTextBox.IsEnabled = true;
+                                BigImageTextTextBox.IsEnabled = true;
+                                BigImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            }
+                            if (IsSmallImageName)
+                            {
+                                this.Dispatcher.Invoke(() =>
                                 {
-                                    this.Dispatcher.Invoke(() =>
-                                    {
-                                        this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
-                                    });
-                                    SmallImageNameTextBox.IsEnabled = true;
-                                    SmallImageTextTextBox.IsEnabled = true;
-                                    IsSmallImageName = true;
-                                    SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
-                                }
-                                if (IsParty)
+                                    this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                                });
+                                SmallImageNameTextBox.IsEnabled = true;
+                                SmallImageTextTextBox.IsEnabled = true;
+                                IsSmallImageName = true;
+                                SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            }
+                            if (IsParty)
+                            {
+                                this.Dispatcher.Invoke(() =>
                                 {
-                                    this.Dispatcher.Invoke(() =>
-                                    {
-                                        this.ConsoleTextBox.Text += $"[LOG] Party size field ENABLED\n";
-                                    });
-                                    PartySizeMinTextBox.IsEnabled = true;
-                                    PartySizeMaxTextBox.IsEnabled = true;
-                                    PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
-                                }
+                                    this.ConsoleTextBox.Text += $"[LOG] Party size field ENABLED\n";
+                                });
+                                PartySizeMinTextBox.IsEnabled = true;
+                                PartySizeMaxTextBox.IsEnabled = true;
+                                PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            }
 
-                                LoadPathConfigTextBox.Text = loadConfig.ConfigPath;
-                                EditPathConfigTextBox.Text = loadConfig.ConfigPath;
+                            LoadPathConfigTextBox.Text = loadConfig.ConfigPath;
+                            EditPathConfigTextBox.Text = loadConfig.ConfigPath;
 
-                                this.ConsoleTextBox.Text += $"[INFO] Config successfully loaded!\n";
-                            });
+                            this.ConsoleTextBox.Text += $"[INFO] Config successfully loaded!\n";
                         });
                     }
                 }
@@ -219,7 +218,7 @@ namespace CustomRPCMaker
                     {
                         this.ConsoleTextBox.Text += $"[ERROR] Error loading Discord RPC config file, it may have been moved!\n";
 
-                        AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
+                        AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
                         IsAutoLoadCheck = false;
                     });
                 }
@@ -228,7 +227,7 @@ namespace CustomRPCMaker
             if (loadConfig.ConfigIsMinimizeCheck)
             {
                 IsMinimizeCheck = true;
-                MinimizeToTrayCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_white_36dp.png"));
+                MinimizeToTrayCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
             }
         }
 
@@ -257,12 +256,12 @@ namespace CustomRPCMaker
 
         private void CloseApp_MouseEnter(object sender, MouseEventArgs e)
         {
-            CloseApp.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_close_red_36dp.png"));
+            CloseApp.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_close_red_36dp.png"));
         }
 
         private void CloseApp_MouseLeave(object sender, MouseEventArgs e)
         {
-            CloseApp.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_close_white_36dp.png"));
+            CloseApp.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_close_white_36dp.png"));
         }
 
         private void ChooseSavePathButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -350,7 +349,7 @@ namespace CustomRPCMaker
                                 this.ConsoleTextBox.Text += $"[LOG] Details field ENABLED\n";
                             });
                             DetailsNameTextBox.IsEnabled = true;
-                            DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
 
                         if (IsState)
@@ -360,7 +359,7 @@ namespace CustomRPCMaker
                                 this.ConsoleTextBox.Text += $"[LOG] State field ENABLED\n";
                             });
                             StateNameTextBox.IsEnabled = true;
-                            StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
                         else
 
@@ -372,7 +371,7 @@ namespace CustomRPCMaker
                             });
                             TimestampStartTextBox.IsEnabled = true;
                             TimestampEndTextBox.IsEnabled = true;
-                            TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
                         else
 
@@ -384,7 +383,7 @@ namespace CustomRPCMaker
                             });
                             BigImageNameTextBox.IsEnabled = true;
                             BigImageTextTextBox.IsEnabled = true;
-                            BigImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            BigImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
                         else
 
@@ -397,7 +396,7 @@ namespace CustomRPCMaker
                             SmallImageNameTextBox.IsEnabled = true;
                             SmallImageTextTextBox.IsEnabled = true;
                             IsSmallImageName = true;
-                            SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
 
                         if (IsParty)
@@ -408,7 +407,7 @@ namespace CustomRPCMaker
                             });
                             PartySizeMinTextBox.IsEnabled = true;
                             PartySizeMaxTextBox.IsEnabled = true;
-                            PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
 
                         this.ConsoleTextBox.Text += $"[INFO] Config successfully loaded!\n";
@@ -571,7 +570,7 @@ namespace CustomRPCMaker
                 });
                 DetailsNameTextBox.IsEnabled = true;
                 IsDetails = true;
-                DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
             }
             else
             {
@@ -581,7 +580,7 @@ namespace CustomRPCMaker
                 });
                 DetailsNameTextBox.IsEnabled = false;
                 IsDetails = false;
-                DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
+                DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
             }
         }
 
@@ -595,7 +594,7 @@ namespace CustomRPCMaker
                 });
                 StateNameTextBox.IsEnabled = true;
                 IsState = true;
-                StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
             }
             else
             {
@@ -605,7 +604,7 @@ namespace CustomRPCMaker
                 });
                 StateNameTextBox.IsEnabled = false;
                 IsState = false;
-                StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
+                StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
             }
         }
 
@@ -620,7 +619,7 @@ namespace CustomRPCMaker
                 TimestampStartTextBox.IsEnabled = true;
                 TimestampEndTextBox.IsEnabled = true;
                 IsTimestamp = true;
-                TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
             }
             else
             {
@@ -631,7 +630,7 @@ namespace CustomRPCMaker
                 TimestampStartTextBox.IsEnabled = false;
                 TimestampEndTextBox.IsEnabled = false;
                 IsTimestamp = false;
-                TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
+                TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
             }
         }
 
@@ -646,7 +645,7 @@ namespace CustomRPCMaker
                 BigImageNameTextBox.IsEnabled = true;
                 BigImageTextTextBox.IsEnabled = true;
                 IsBigImageName = true;
-                BigImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                BigImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
             }
             else
             {
@@ -657,7 +656,7 @@ namespace CustomRPCMaker
                 BigImageNameTextBox.IsEnabled = false;
                 BigImageTextTextBox.IsEnabled = false;
                 IsBigImageName = false;
-                BigImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
+                BigImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
             }
         }
 
@@ -672,7 +671,7 @@ namespace CustomRPCMaker
                 SmallImageNameTextBox.IsEnabled = true;
                 SmallImageTextTextBox.IsEnabled = true;
                 IsSmallImageName = true;
-                SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
             }
             else
             {
@@ -683,7 +682,7 @@ namespace CustomRPCMaker
                 SmallImageNameTextBox.IsEnabled = false;
                 SmallImageTextTextBox.IsEnabled = false;
                 IsSmallImageName = false;
-                SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
+                SmallImageButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
             }
         }
 
@@ -698,7 +697,7 @@ namespace CustomRPCMaker
                 PartySizeMinTextBox.IsEnabled = true;
                 PartySizeMaxTextBox.IsEnabled = true;
                 IsParty = true;
-                PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
             }
             else
             {
@@ -709,7 +708,7 @@ namespace CustomRPCMaker
                 PartySizeMinTextBox.IsEnabled = false;
                 PartySizeMaxTextBox.IsEnabled = false;
                 IsParty = false;
-                PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
+                PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
             }
         }
 
@@ -1002,7 +1001,7 @@ namespace CustomRPCMaker
             if (IsMinimizeCheck)
             {
                 IsMinimizeCheck = false;
-                MinimizeToTrayCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
+                MinimizeToTrayCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
                 this.Dispatcher.Invoke(() =>
                 {
                     this.ConsoleTextBox.Text += $"[RPC Settings] Minimize to tray while closing program DISABLED\n";
@@ -1025,7 +1024,7 @@ namespace CustomRPCMaker
             else
             {
                 IsMinimizeCheck = true;
-                MinimizeToTrayCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_white_36dp.png"));
+                MinimizeToTrayCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
                 this.Dispatcher.Invoke(() =>
                 {
                     this.ConsoleTextBox.Text += $"[RPC Settings] Minimize to tray while closing program ENABLED\n";
@@ -1065,7 +1064,7 @@ namespace CustomRPCMaker
                 if (IsAutoLoadCheck)
                 {
                     IsAutoLoadCheck = false;
-                    AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
+                    AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
                     this.Dispatcher.Invoke(() =>
                     {
                         this.ConsoleTextBox.Text += $"[RPC Settings] Auto-load config file DISABLED\n";
@@ -1086,7 +1085,7 @@ namespace CustomRPCMaker
                 else
                 {
                     IsAutoLoadCheck = true;
-                    AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/ui_assets/icons/baseline_check_box_white_36dp.png"));
+                    AutoLoadConfigCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
                     this.Dispatcher.Invoke(() =>
                     {
                         this.ConsoleTextBox.Text += $"[RPC Settings] Auto-load config file ENABLED\n";
