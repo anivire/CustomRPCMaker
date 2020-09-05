@@ -7,13 +7,10 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-
 using DiscordRPC;
 using DiscordRPC.Message;
-
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Win32;
-
 using Newtonsoft.Json;
 
 namespace CustomRPCMaker.DRPC.Core
@@ -29,8 +26,6 @@ namespace CustomRPCMaker.DRPC.Core
         public string ConfigSmallImageText { get; set; }
         public int ConfigPartySizeMin { get; set; }
         public int ConfigPartySizeMax { get; set; }
-        public double ConfigTimestampStart { get; set; }
-        public double ConfigTimestampEnd { get; set; }
 
         public bool ConfigIsDetails = false;
         public bool ConfigIsState = false;
@@ -47,8 +42,8 @@ namespace CustomRPCMaker.DRPC.Core
         public bool ConfigIsMinimizeCheck = false;
         public bool ConfigIsAutoLoadCheck = false;
         public bool ConfigEnableAppCheck = false;
-        public bool ConfigIsElapsedTimeOn = false;
-        public bool ConfigIsCurrentTimeOn = false;
+        public bool ConfigIsElapsedTimeCheck = false;
+        public bool ConfigIsCurrentTimeCheck = false;
         public string ConfigPath { get; set; }
     }
 
@@ -63,10 +58,8 @@ namespace CustomRPCMaker.DRPC.Core
         public string SmallImage { get; set; }
         public string BigImageText { get; set; }
         public string SmallImageText { get; set; }
-        public int PartySizeMin { get; set; }
         public int PartySizeMax { get; set; }
-        public double TimestampStart { get; set; }
-        public double TimestampEnd { get; set; }
+        public int PartySizeMin { get; set; }
 
         public bool IsDetails = false;
         public bool IsState = false;
@@ -80,6 +73,8 @@ namespace CustomRPCMaker.DRPC.Core
         public bool IsStarted = false;
         public bool IsMinimizeCheck = false;
         public bool IsAutoLoadCheck = false;
+        public bool IsElapsedTimeCheck = false;
+        public bool IsCurrentTimeCheck = false;
 
         public bool IsConfigLoaded { get; set;}
 
@@ -87,7 +82,7 @@ namespace CustomRPCMaker.DRPC.Core
         {
             InitializeComponent();
 
-            TaskbarIcon.Icon = new Icon(@"C:\Users\anivire\source\repos\CustomRPCMaker\DRPC.Core\ui_assets\discord-Logo-Color.ico");
+            TaskbarIcon.Icon = new Icon(@"C:\Users\anivire\source\repos\CustomRPCMaker\DRPC.Core\ui_assets\discord-logo-Color.ico");
             TaskbarIcon.ToolTipText = "Discord RPC Maker";
 
             this.Dispatcher.Invoke(() =>
@@ -105,8 +100,8 @@ namespace CustomRPCMaker.DRPC.Core
                     ConfigIsMinimizeCheck = false,
                     ConfigIsAutoLoadCheck = false,
                     ConfigEnableAppCheck = false,
-                    ConfigIsElapsedTimeOn = false,
-                    ConfigIsCurrentTimeOn = false,
+                    ConfigIsElapsedTimeCheck = false,
+                    ConfigIsCurrentTimeCheck = false,
                     ConfigPath = String.Empty
                 };
 
@@ -134,8 +129,6 @@ namespace CustomRPCMaker.DRPC.Core
                             SmallImageTextTextBox.Text = config.ConfigSmallImageText;
                             PartySizeMinTextBox.Text = Convert.ToString(config.ConfigPartySizeMin);
                             PartySizeMaxTextBox.Text = Convert.ToString(config.ConfigPartySizeMax);
-                            TimestampStartTextBox.Text = Convert.ToString(config.ConfigTimestampStart);
-                            TimestampEndTextBox.Text = Convert.ToString(config.ConfigTimestampEnd);
                             IsDetails = config.ConfigIsDetails;
                             IsState = config.ConfigIsState;
                             IsTimestamp = config.ConfigIsTimestamp;
@@ -149,7 +142,7 @@ namespace CustomRPCMaker.DRPC.Core
                             {
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    this.ConsoleTextBox.Text += $"[LOG] Details field ENABLED\n";
+                                    this.ConsoleTextBox.Text += $"[INFO] Details field ENABLED\n";
                                 });
                                 DetailsNameTextBox.IsEnabled = true;
                                 DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
@@ -158,7 +151,7 @@ namespace CustomRPCMaker.DRPC.Core
                             {
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    this.ConsoleTextBox.Text += $"[LOG] State field ENABLED\n";
+                                    this.ConsoleTextBox.Text += $"[INFO] State field ENABLED\n";
                                 });
                                 StateNameTextBox.IsEnabled = true;
                                 StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
@@ -167,7 +160,7 @@ namespace CustomRPCMaker.DRPC.Core
                             {
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    this.ConsoleTextBox.Text += $"[LOG] Timestamp field ENABLED\n";
+                                    this.ConsoleTextBox.Text += $"[INFO] Timestamp field ENABLED\n";
                                 });
                                 TimestampStartTextBox.IsEnabled = true;
                                 TimestampEndTextBox.IsEnabled = true;
@@ -177,7 +170,7 @@ namespace CustomRPCMaker.DRPC.Core
                             {
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                                    this.ConsoleTextBox.Text += $"[INFO] Large image field ENABLED\n";
                                 });
                                 BigImageNameTextBox.IsEnabled = true;
                                 BigImageTextTextBox.IsEnabled = true;
@@ -187,7 +180,7 @@ namespace CustomRPCMaker.DRPC.Core
                             {
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                                    this.ConsoleTextBox.Text += $"[INFO] Large image field ENABLED\n";
                                 });
                                 SmallImageNameTextBox.IsEnabled = true;
                                 SmallImageTextTextBox.IsEnabled = true;
@@ -198,7 +191,7 @@ namespace CustomRPCMaker.DRPC.Core
                             {
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    this.ConsoleTextBox.Text += $"[LOG] Party size field ENABLED\n";
+                                    this.ConsoleTextBox.Text += $"[INFO] Party size field ENABLED\n";
                                 });
                                 PartySizeMinTextBox.IsEnabled = true;
                                 PartySizeMaxTextBox.IsEnabled = true;
@@ -228,6 +221,18 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 IsMinimizeCheck = true;
                 MinimizeToTrayCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
+            }
+
+            if (loadConfig.ConfigIsElapsedTimeCheck)
+            {
+                IsElapsedTimeCheck = true;
+                DisplayElapsedTimeCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
+            }
+
+            if (loadConfig.ConfigIsCurrentTimeCheck)
+            {
+                IsCurrentTimeCheck = true;
+                DisplayCurrentTimeCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
             }
         }
 
@@ -277,8 +282,6 @@ namespace CustomRPCMaker.DRPC.Core
                   ConfigSmallImageText = SmallImageText,
                   ConfigPartySizeMin = PartySizeMin,
                   ConfigPartySizeMax = PartySizeMax,
-                  ConfigTimestampStart = TimestampStart,
-                  ConfigTimestampEnd = TimestampEnd,
                   ConfigIsDetails = IsDetails,
                   ConfigIsState = IsState,
                   ConfigIsTimestamp = IsTimestamp,
@@ -289,14 +292,14 @@ namespace CustomRPCMaker.DRPC.Core
                   ConfigIsParty = IsParty
             };
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = " Config files (*.json) | *.json";
-            saveFileDialog.FileName = "DiscordRPCConfig.json";
-            if (saveFileDialog.ShowDialog() == true)
-                File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(config, Formatting.Indented));
+            SaveFileDialog saveFileDiaINFO = new SaveFileDialog();
+            saveFileDiaINFO.Filter = " Config files (*.json) | *.json";
+            saveFileDiaINFO.FileName = "DiscordRPCConfig.json";
+            if (saveFileDiaINFO.ShowDialog() == true)
+                File.WriteAllText(saveFileDiaINFO.FileName, JsonConvert.SerializeObject(config, Formatting.Indented));
 
-            SavePathConfigTextBox.Text = saveFileDialog.FileName;
-            EditPathConfigTextBox.Text = saveFileDialog.FileName;
+            SavePathConfigTextBox.Text = saveFileDiaINFO.FileName;
+            EditPathConfigTextBox.Text = saveFileDiaINFO.FileName;
         }
 
         private void ChooseLoadPathButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -307,16 +310,16 @@ namespace CustomRPCMaker.DRPC.Core
 
                 IsConfigLoaded = true;
 
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = " Config files (*.json) | *.json";
+                OpenFileDialog openFileDiaINFO = new OpenFileDialog();
+                openFileDiaINFO.Filter = " Config files (*.json) | *.json";
 
-                if (openFileDialog.ShowDialog() == true)
+                if (openFileDiaINFO.ShowDialog() == true)
                 {
-                    LoadPathConfigTextBox.Text = openFileDialog.FileName;
-                    EditPathConfigTextBox.Text = openFileDialog.FileName;
+                    LoadPathConfigTextBox.Text = openFileDiaINFO.FileName;
+                    EditPathConfigTextBox.Text = openFileDiaINFO.FileName;
                 }
 
-                Config loadConfig = JsonConvert.DeserializeObject<Config>(File.ReadAllText(openFileDialog.FileName));
+                Config loadConfig = JsonConvert.DeserializeObject<Config>(File.ReadAllText(openFileDiaINFO.FileName));
 
                 this.Dispatcher.Invoke(() =>
                 {
@@ -329,8 +332,6 @@ namespace CustomRPCMaker.DRPC.Core
                     SmallImageTextTextBox.Text = loadConfig.ConfigSmallImageText;
                     PartySizeMinTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMin);
                     PartySizeMaxTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMax);
-                    TimestampStartTextBox.Text = Convert.ToString(loadConfig.ConfigTimestampStart);
-                    TimestampEndTextBox.Text = Convert.ToString(loadConfig.ConfigTimestampEnd);
                     IsDetails = loadConfig.ConfigIsDetails;
                     IsState = loadConfig.ConfigIsState;
                     IsTimestamp = loadConfig.ConfigIsTimestamp;
@@ -346,7 +347,7 @@ namespace CustomRPCMaker.DRPC.Core
                         {
                             this.Dispatcher.Invoke(() =>
                             {
-                                this.ConsoleTextBox.Text += $"[LOG] Details field ENABLED\n";
+                                this.ConsoleTextBox.Text += $"[INFO] Details field ENABLED\n";
                             });
                             DetailsNameTextBox.IsEnabled = true;
                             DetailsButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
@@ -356,7 +357,7 @@ namespace CustomRPCMaker.DRPC.Core
                         {
                             this.Dispatcher.Invoke(() =>
                             {
-                                this.ConsoleTextBox.Text += $"[LOG] State field ENABLED\n";
+                                this.ConsoleTextBox.Text += $"[INFO] State field ENABLED\n";
                             });
                             StateNameTextBox.IsEnabled = true;
                             StateButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
@@ -367,7 +368,7 @@ namespace CustomRPCMaker.DRPC.Core
                         {
                             this.Dispatcher.Invoke(() =>
                             {
-                                this.ConsoleTextBox.Text += $"[LOG] Timestamp field ENABLED\n";
+                                this.ConsoleTextBox.Text += $"[INFO] Timestamp field ENABLED\n";
                             });
                             TimestampStartTextBox.IsEnabled = true;
                             TimestampEndTextBox.IsEnabled = true;
@@ -379,7 +380,7 @@ namespace CustomRPCMaker.DRPC.Core
                         {
                             this.Dispatcher.Invoke(() =>
                             {
-                                this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                                this.ConsoleTextBox.Text += $"[INFO] Large image field ENABLED\n";
                             });
                             BigImageNameTextBox.IsEnabled = true;
                             BigImageTextTextBox.IsEnabled = true;
@@ -391,7 +392,7 @@ namespace CustomRPCMaker.DRPC.Core
                         {
                             this.Dispatcher.Invoke(() =>
                             {
-                                this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                                this.ConsoleTextBox.Text += $"[INFO] Large image field ENABLED\n";
                             });
                             SmallImageNameTextBox.IsEnabled = true;
                             SmallImageTextTextBox.IsEnabled = true;
@@ -403,7 +404,7 @@ namespace CustomRPCMaker.DRPC.Core
                         {
                             this.Dispatcher.Invoke(() =>
                             {
-                                this.ConsoleTextBox.Text += $"[LOG] Party size field ENABLED\n";
+                                this.ConsoleTextBox.Text += $"[INFO] Party size field ENABLED\n";
                             });
                             PartySizeMinTextBox.IsEnabled = true;
                             PartySizeMaxTextBox.IsEnabled = true;
@@ -432,7 +433,7 @@ namespace CustomRPCMaker.DRPC.Core
         {
             Thread thread = new Thread(() =>
             {
-                try
+                if (ClientIDBox.Password.Length > 1)
                 {
                     if (!IsStarted)
                     {
@@ -445,17 +446,28 @@ namespace CustomRPCMaker.DRPC.Core
                         Client.OnConnectionEstablished += OnConnectionEstablished;
                         Client.OnClose += OnClose;
 
+                        Timestamps timeChoose = null;
+
+                        if (IsCurrentTimeCheck)
+                        {
+                            timeChoose = new Timestamps()
+                            {
+                                StartUnixMilliseconds = (ulong)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1,
+                                                            DateTime.Now.Hour,
+                                                            DateTime.Now.Minute,
+                                                            DateTime.Now.Second))).TotalSeconds,
+                            };
+                        }
+                        else if (IsElapsedTimeCheck)
+                        {
+                            timeChoose = Timestamps.Now;
+                        }
+
                         Client.SetPresence(new RichPresence()
                         {
                             Details = Details,
                             State = State,
-                            Timestamps = new Timestamps()
-                            {
-                                StartUnixMilliseconds = (ulong)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1,
-                                    DateTime.Now.Hour,
-                                    DateTime.Now.Minute,
-                                    DateTime.Now.Second))).TotalSeconds,
-                            },
+                            Timestamps = timeChoose,
                             Party = new Party()
                             {
                                 ID = "justTextForWorkAPrtySystem",
@@ -470,6 +482,7 @@ namespace CustomRPCMaker.DRPC.Core
                                 SmallImageText = SmallImageText
                             }
                         });
+
                         IsStarted = true;
                     }
                     else
@@ -482,7 +495,7 @@ namespace CustomRPCMaker.DRPC.Core
                         IsStarted = false;
                     }
                 }
-                catch
+                else
                 {
                     this.Dispatcher.Invoke(() =>
                     {
@@ -566,7 +579,7 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] Details field ENABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] Details field ENABLED\n";
                 });
                 DetailsNameTextBox.IsEnabled = true;
                 IsDetails = true;
@@ -576,7 +589,7 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] Details field DISABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] Details field DISABLED\n";
                 });
                 DetailsNameTextBox.IsEnabled = false;
                 IsDetails = false;
@@ -590,7 +603,7 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] State field ENABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] State field ENABLED\n";
                 });
                 StateNameTextBox.IsEnabled = true;
                 IsState = true;
@@ -600,7 +613,7 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] State field DISABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] State field DISABLED\n";
                 });
                 StateNameTextBox.IsEnabled = false;
                 IsState = false;
@@ -614,10 +627,10 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] Timestamp field ENABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] Timestamp field ENABLED\n";
                 });
-                TimestampStartTextBox.IsEnabled = true;
-                TimestampEndTextBox.IsEnabled = true;
+                // TimestampStartTextBox.IsEnabled = true;
+                // TimestampEndTextBox.IsEnabled = true;
                 IsTimestamp = true;
                 TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
             }
@@ -625,10 +638,10 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] Timestamp field DISABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] Timestamp field DISABLED\n";
                 });
-                TimestampStartTextBox.IsEnabled = false;
-                TimestampEndTextBox.IsEnabled = false;
+                // TimestampStartTextBox.IsEnabled = false;
+                // TimestampEndTextBox.IsEnabled = false;
                 IsTimestamp = false;
                 TimestampButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
             }
@@ -640,7 +653,7 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] Large image field ENABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] Large image field ENABLED\n";
                 });
                 BigImageNameTextBox.IsEnabled = true;
                 BigImageTextTextBox.IsEnabled = true;
@@ -651,7 +664,7 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] Large image field DISABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] Large image field DISABLED\n";
                 });
                 BigImageNameTextBox.IsEnabled = false;
                 BigImageTextTextBox.IsEnabled = false;
@@ -666,7 +679,7 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] Small image field ENABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] Small image field ENABLED\n";
                 });
                 SmallImageNameTextBox.IsEnabled = true;
                 SmallImageTextTextBox.IsEnabled = true;
@@ -677,7 +690,7 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] Small image field DISABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] Small image field DISABLED\n";
                 });
                 SmallImageNameTextBox.IsEnabled = false;
                 SmallImageTextTextBox.IsEnabled = false;
@@ -692,7 +705,7 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] Party size field ENABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] Party size field ENABLED\n";
                 });
                 PartySizeMinTextBox.IsEnabled = true;
                 PartySizeMaxTextBox.IsEnabled = true;
@@ -703,7 +716,7 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[LOG] Party size field DISABLED\n";
+                    this.ConsoleTextBox.Text += $"[INFO] Party size field DISABLED\n";
                 });
                 PartySizeMinTextBox.IsEnabled = false;
                 PartySizeMaxTextBox.IsEnabled = false;
@@ -716,12 +729,24 @@ namespace CustomRPCMaker.DRPC.Core
         {
             SmallImageText = BigImageNameTextBox.Text;
             HiddenSmallImageText.ToolTip = SmallImageTextTextBox.Text;
+
+            if (SmallImageTextTextBox.Text.Length < 1)
+            {
+                SmallImageTextTextBox.Text = null;
+                SmallImageText = null;
+            }
         }
 
         private void BigImageTextTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             BigImageText = BigImageNameTextBox.Text;
             HiddenBigImageText.ToolTip = BigImageNameTextBox.Text;
+
+            if (BigImageNameTextBox.Text.Length < 1)
+            {
+                BigImageNameTextBox.Text = null;
+                BigImageText = null;
+            }
         }
 
         private void ClientIDBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -826,13 +851,13 @@ namespace CustomRPCMaker.DRPC.Core
             }
         }
 
-        private void TimestampStartTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+/*        private void TimestampStartTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             try
             {
                 if (TimestampStartTextBox.Text.Length < 1)
                 {
-                    TimestampStart = 0;
+                    TimestampStart = DateTime.Parse("0");
                 }
                 else if (Convert.ToDouble(TimestampStartTextBox.Text) > 2147483648)
                 {
@@ -841,7 +866,7 @@ namespace CustomRPCMaker.DRPC.Core
                 else
                 {
                    
-                    TimestampStart = Convert.ToDouble(TimestampStartTextBox.Text);
+                    TimestampStart = DateTime.Parse(TimestampStartTextBox.Text);
                 }
             }
             catch
@@ -852,15 +877,15 @@ namespace CustomRPCMaker.DRPC.Core
                     this.ConsoleTextBox.Text += $"[ERROR] Timestamp value too big!\n";
                 });
             }
-        }
+        }*/
 
-        private void TimestampEndTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+/*        private void TimestampEndTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             try
             {
                 if (TimestampEndTextBox.Text.Length < 1)
                 {
-                    TimestampEnd = 0;
+                    TimestampEnd = DateTime.Parse("0");
                 }
                 else if (Convert.ToDouble(TimestampEndTextBox.Text) > 2147483647)
                 {
@@ -869,7 +894,7 @@ namespace CustomRPCMaker.DRPC.Core
                 else
                 {
 
-                    TimestampEnd = Convert.ToDouble(TimestampEndTextBox.Text);
+                    TimestampEnd = DateTime.Parse(TimestampEndTextBox.Text);
                 }
             }
             catch
@@ -880,45 +905,80 @@ namespace CustomRPCMaker.DRPC.Core
                     this.ConsoleTextBox.Text += $"[ERROR] Timestamp value too big!\n";
                 });
             }
-        }
+        }*/
 
         private void ReloadRPC_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            try
+            Timestamps timeChoose = null;
+
+            if (IsStarted)
             {
-                Client.SetPresence(new RichPresence()
+                if (IsCurrentTimeCheck)
                 {
-                    Details = Details,
-                    State = State,
-                    Timestamps = new Timestamps()
+                    timeChoose = new Timestamps()
                     {
                         StartUnixMilliseconds = (ulong)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1,
-                                DateTime.Now.Hour,
-                                DateTime.Now.Minute,
-                                DateTime.Now.Second))).TotalSeconds,
-                    },
-                    Party = new Party()
+                                                    DateTime.Now.Hour,
+                                                    DateTime.Now.Minute,
+                                                    DateTime.Now.Second))).TotalSeconds,
+                    };
+                }
+                else if (IsElapsedTimeCheck)
+                {
+                    timeChoose = Timestamps.Now;
+                }
+
+                if (IsTimestamp)
+                {
+                    Client.SetPresence(new RichPresence()
                     {
-                        ID = "justTextForWorkAPrtySystem",
-                        Size = PartySizeMin,
-                        Max = PartySizeMax
-                    },
-                    Assets = new Assets()
+                        Details = Details,
+                        State = State,
+                        Timestamps = timeChoose,
+                        Party = new Party()
+                        {
+                            ID = "justTextForWorkAPrtySystem",
+                            Size = PartySizeMin,
+                            Max = PartySizeMax
+                        },
+                        Assets = new Assets()
+                        {
+                            LargeImageKey = BigImage,
+                            LargeImageText = BigImageText,
+                            SmallImageKey = SmallImage,
+                            SmallImageText = SmallImageText
+                        }
+                    });
+                }
+                else
+                {
+                    Client.SetPresence(new RichPresence()
                     {
-                        LargeImageKey = BigImage,
-                        LargeImageText = BigImageText,
-                        SmallImageKey = SmallImage,
-                        SmallImageText = SmallImageText
-                    }
-                });
+                        Details = Details,
+                        State = State,
+                        Party = new Party()
+                        {
+                            ID = "justTextForWorkAPrtySystem",
+                            Size = PartySizeMin,
+                            Max = PartySizeMax
+                        },
+                        Assets = new Assets()
+                        {
+                            LargeImageKey = BigImage,
+                            LargeImageText = BigImageText,
+                            SmallImageKey = SmallImage,
+                            SmallImageText = SmallImageText
+                        }
+                    });
+                }
             }
-            catch
+            else
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[ERROR] Enter Client ID before starting\n";
+                    this.ConsoleTextBox.Text += $"[ERROR] Start App to change settings!\n";
                 });
-            }
+            }    
         }
 
         private void ClearButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -944,8 +1004,6 @@ namespace CustomRPCMaker.DRPC.Core
             SmallImageText = String.Empty;
             PartySizeMin = 0;
             PartySizeMax = 0;
-            TimestampStart = 0;
-            TimestampEnd = 0;
 
             IsDetails = false;
             IsState = false;
@@ -958,7 +1016,7 @@ namespace CustomRPCMaker.DRPC.Core
 
             this.Dispatcher.Invoke(() =>
             {
-                this.ConsoleTextBox.Text += $"[LOG] All fields cleared\n";
+                this.ConsoleTextBox.Text += $"[INFO] All fields cleared\n";
             });
         }
 
@@ -971,7 +1029,7 @@ namespace CustomRPCMaker.DRPC.Core
                     Process.Start("C:\\Windows\\System32\\notepad.exe", SavePathConfigTextBox.Text);
                     this.Dispatcher.Invoke(() =>
                     {
-                        this.ConsoleTextBox.Text += $"[LOG] Open config file\n";
+                        this.ConsoleTextBox.Text += $"[INFO] Open config file\n";
                     });
                 }
                 else if (LoadPathConfigTextBox.Text != String.Empty)
@@ -979,7 +1037,7 @@ namespace CustomRPCMaker.DRPC.Core
                     Process.Start("C:\\Windows\\System32\\notepad.exe", LoadPathConfigTextBox.Text);
                     this.Dispatcher.Invoke(() =>
                     {
-                        this.ConsoleTextBox.Text += $"[LOG] Open config file\n";
+                        this.ConsoleTextBox.Text += $"[INFO] Open config file\n";
                     });
                 }
                 else
@@ -1014,8 +1072,8 @@ namespace CustomRPCMaker.DRPC.Core
                     ConfigIsMinimizeCheck = false,
                     ConfigIsAutoLoadCheck = tempConfig.ConfigIsAutoLoadCheck,
                     ConfigEnableAppCheck = tempConfig.ConfigEnableAppCheck,
-                    ConfigIsElapsedTimeOn = tempConfig.ConfigIsElapsedTimeOn,
-                    ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn,
+                    ConfigIsElapsedTimeCheck = tempConfig.ConfigIsElapsedTimeCheck,
+                    ConfigIsCurrentTimeCheck = tempConfig.ConfigIsCurrentTimeCheck,
                     ConfigPath = tempConfig.ConfigPath
                 };
 
@@ -1037,8 +1095,8 @@ namespace CustomRPCMaker.DRPC.Core
                     ConfigIsMinimizeCheck = true,
                     ConfigIsAutoLoadCheck = tempConfig.ConfigIsAutoLoadCheck,
                     ConfigEnableAppCheck = tempConfig.ConfigEnableAppCheck,
-                    ConfigIsElapsedTimeOn = tempConfig.ConfigIsElapsedTimeOn,
-                    ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn,
+                    ConfigIsElapsedTimeCheck = tempConfig.ConfigIsElapsedTimeCheck,
+                    ConfigIsCurrentTimeCheck = tempConfig.ConfigIsCurrentTimeCheck,
                     ConfigPath = tempConfig.ConfigPath
                 };
 
@@ -1075,8 +1133,8 @@ namespace CustomRPCMaker.DRPC.Core
                         ConfigIsMinimizeCheck = tempConfig.ConfigIsMinimizeCheck,
                         ConfigIsAutoLoadCheck = false,
                         ConfigEnableAppCheck = tempConfig.ConfigEnableAppCheck,
-                        ConfigIsElapsedTimeOn = tempConfig.ConfigIsElapsedTimeOn,
-                        ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn,
+                        ConfigIsElapsedTimeCheck = tempConfig.ConfigIsElapsedTimeCheck,
+                        ConfigIsCurrentTimeCheck = tempConfig.ConfigIsCurrentTimeCheck,
                         ConfigPath = null 
                     }; 
 
@@ -1096,8 +1154,8 @@ namespace CustomRPCMaker.DRPC.Core
                         ConfigIsMinimizeCheck = tempConfig.ConfigIsMinimizeCheck,
                         ConfigIsAutoLoadCheck = true,
                         ConfigEnableAppCheck = tempConfig.ConfigEnableAppCheck,
-                        ConfigIsElapsedTimeOn = tempConfig.ConfigIsElapsedTimeOn,
-                        ConfigIsCurrentTimeOn = tempConfig.ConfigIsCurrentTimeOn,
+                        ConfigIsElapsedTimeCheck = tempConfig.ConfigIsElapsedTimeCheck,
+                        ConfigIsCurrentTimeCheck = tempConfig.ConfigIsCurrentTimeCheck,
                         ConfigPath = newConfigPath
                     };
 
@@ -1110,6 +1168,94 @@ namespace CustomRPCMaker.DRPC.Core
                 {
                     this.ConsoleTextBox.Text += $"[ERROR] Save or load config for enable auto-load\n";
                 });
+            }
+        }
+
+        private void DisplayElapsedTimeCheck_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (IsTimestamp && !IsCurrentTimeCheck)
+            {
+                if (IsElapsedTimeCheck)
+                {
+                    IsElapsedTimeCheck = false;
+                    DisplayElapsedTimeCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[INFO] Display elapsed time DISABLED!\n";
+                    });
+                }
+                else if (!IsElapsedTimeCheck)
+                {
+                    IsElapsedTimeCheck = true;
+                    DisplayElapsedTimeCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[INFO] Display elapsed time ENABLED!\n";
+                    });
+                }
+            }
+            else
+            {
+                if (!IsTimestamp)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[ERROR] Enable Timestamp field!\n";
+                    });
+                }
+                else if (IsCurrentTimeCheck)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[ERROR] Disable current time setting!\n";
+                    });
+                }
+            }
+        }
+
+        private void DisplayCurrentTimeCheck_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (IsTimestamp && !IsElapsedTimeCheck)
+            {
+                if (IsCurrentTimeCheck)
+                {
+                    IsCurrentTimeCheck = false;
+                    DisplayCurrentTimeCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[INFO] Display current time DISABLED!\n";
+                    });
+                }
+                else if (!IsCurrentTimeCheck)
+                {
+                    IsCurrentTimeCheck = true;
+                    DisplayCurrentTimeCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[INFO] Display current time ENABLED!\n";
+                    });
+                }
+            }
+            else
+            {
+                if (!IsTimestamp)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[ERROR] Enable Timestamp field!\n";
+                    });
+                }
+                else if (IsElapsedTimeCheck)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[ERROR] Disable eplapsed time setting!\n";
+                    });
+                }
             }
         }
     }
