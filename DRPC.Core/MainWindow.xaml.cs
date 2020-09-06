@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -18,6 +19,7 @@ namespace CustomRPCMaker.DRPC.Core
     public class Config
     {
         public string ConfigAppID { get; set; }
+        public string ConfigAppName { get; set; }
         public string ConfigDetails { get; set; }
         public string ConfigState { get; set; }
         public string ConfigBigImage { get; set; }
@@ -35,6 +37,7 @@ namespace CustomRPCMaker.DRPC.Core
         public bool ConfigIsBigImageText = false;
         public bool ConfigIsSmallImageText = false;
         public bool ConfigIsParty = false;
+        public bool ConfigIsAppCheck = false;
     }
 
     public class Settings
@@ -52,6 +55,7 @@ namespace CustomRPCMaker.DRPC.Core
         public DiscordRpcClient Client { get; private set; }
 
         public string AppID { get; set; }
+        public string AppName { get; set; }
         public string Details { get; set; }
         public string State { get; set; }
         public string BigImage { get; set; }
@@ -75,6 +79,7 @@ namespace CustomRPCMaker.DRPC.Core
         public bool IsAutoLoadCheck = false;
         public bool IsElapsedTimeCheck = false;
         public bool IsCurrentTimeCheck = false;
+        public bool IsAppCheck = false;
 
         public bool IsConfigLoaded { get; set;}
 
@@ -129,6 +134,7 @@ namespace CustomRPCMaker.DRPC.Core
                             SmallImageTextTextBox.Text = config.ConfigSmallImageText;
                             PartySizeMinTextBox.Text = Convert.ToString(config.ConfigPartySizeMin);
                             PartySizeMaxTextBox.Text = Convert.ToString(config.ConfigPartySizeMax);
+                            AppName = config.ConfigAppName;
                             IsDetails = config.ConfigIsDetails;
                             IsState = config.ConfigIsState;
                             IsTimestamp = config.ConfigIsTimestamp;
@@ -137,6 +143,7 @@ namespace CustomRPCMaker.DRPC.Core
                             IsBigImageText = config.ConfigIsBigImageText;
                             IsSmallImageText = config.ConfigIsSmallImageText;
                             IsParty = config.ConfigIsParty;
+                            IsAppCheck = config.ConfigIsAppCheck;
 
                             if (IsDetails)
                             {
@@ -196,6 +203,16 @@ namespace CustomRPCMaker.DRPC.Core
                                 PartySizeMinTextBox.IsEnabled = true;
                                 PartySizeMaxTextBox.IsEnabled = true;
                                 PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+                            }
+                            if (IsAppCheck)
+                            {
+                                this.Dispatcher.Invoke(() =>
+                                {
+                                    this.ConsoleTextBox.Text += $"[INFO] App check for RPC start ENABLED!\n";
+                                });
+
+                                EditAppNameTextBox.IsEnabled = true;
+                                EnableAppCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
                             }
 
                             LoadPathConfigTextBox.Text = loadConfig.ConfigPath;
@@ -274,6 +291,7 @@ namespace CustomRPCMaker.DRPC.Core
             Config config = new Config()
             {
                   ConfigAppID = AppID,
+                  ConfigAppName = AppName,
                   ConfigDetails = Details,
                   ConfigState = State,
                   ConfigBigImage = BigImage,
@@ -289,7 +307,8 @@ namespace CustomRPCMaker.DRPC.Core
                   ConfigIsSmallImageName = IsSmallImageName,
                   ConfigIsBigImageText = IsBigImageText,
                   ConfigIsSmallImageText = IsSmallImageText,
-                  ConfigIsParty = IsParty
+                  ConfigIsParty = IsParty,
+                  ConfigIsAppCheck = IsAppCheck
             };
 
             SaveFileDialog saveFileDiaINFO = new SaveFileDialog();
@@ -332,6 +351,7 @@ namespace CustomRPCMaker.DRPC.Core
                     SmallImageTextTextBox.Text = loadConfig.ConfigSmallImageText;
                     PartySizeMinTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMin);
                     PartySizeMaxTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMax);
+                    EditAppNameTextBox.Text = loadConfig.ConfigAppName;
                     IsDetails = loadConfig.ConfigIsDetails;
                     IsState = loadConfig.ConfigIsState;
                     IsTimestamp = loadConfig.ConfigIsTimestamp;
@@ -340,6 +360,7 @@ namespace CustomRPCMaker.DRPC.Core
                     IsBigImageText = loadConfig.ConfigIsBigImageText;
                     IsSmallImageText = loadConfig.ConfigIsSmallImageText;
                     IsParty = loadConfig.ConfigIsParty;
+                    IsAppCheck = loadConfig.ConfigIsAppCheck;
 
                     this.Dispatcher.Invoke(() =>
                     {
@@ -410,6 +431,16 @@ namespace CustomRPCMaker.DRPC.Core
                             PartySizeMaxTextBox.IsEnabled = true;
                             PartyButton.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
+                        if (IsAppCheck)
+                        {
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.ConsoleTextBox.Text += $"[INFO] App check for RPC start ENABLED!\n";
+                            });
+
+                            EditAppNameTextBox.IsEnabled = true;
+                            EnableAppCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
+                        }
 
                         this.ConsoleTextBox.Text += $"[INFO] Config successfully loaded!\n";
                     });
@@ -429,78 +460,203 @@ namespace CustomRPCMaker.DRPC.Core
             DragMove();
         }
 
+        public bool IsAppStarted()
+        {
+            Process[] localAll = Process.GetProcesses();
+
+            if (localAll.Any(x => x.ProcessName == AppName))
+            {
+                return true;
+            }
+            return false;
+        }
+
         private void StartRPCButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Thread thread = new Thread(() =>
             {
-                if (ClientIDBox.Password.Length > 1)
+                if (IsAppCheck)
                 {
-                    if (!IsStarted)
+                    if (AppName.Length > 1)
                     {
-                        Client = new DiscordRpcClient(AppID);
-                        Client.Initialize();
-
-                        Client.OnReady += OnReady;
-                        Client.OnPresenceUpdate += OnPresenceUpdate;
-                        Client.OnConnectionFailed += OnConnectionFailed;
-                        Client.OnConnectionEstablished += OnConnectionEstablished;
-                        Client.OnClose += OnClose;
-
-                        Timestamps timeChoose = null;
-
-                        if (IsCurrentTimeCheck)
+                        while (!IsAppStarted())
                         {
-                            timeChoose = new Timestamps()
+                            this.Dispatcher.Invoke(() =>
                             {
-                                StartUnixMilliseconds = (ulong)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1,
-                                                            DateTime.Now.Hour,
-                                                            DateTime.Now.Minute,
-                                                            DateTime.Now.Second))).TotalSeconds,
-                            };
-                        }
-                        else if (IsElapsedTimeCheck)
-                        {
-                            timeChoose = Timestamps.Now;
+                                this.ConsoleTextBox.Text += $"[INFO] Run App to continue!\n";
+                            });
+                            Thread.Sleep(5000);
                         }
 
-                        Client.SetPresence(new RichPresence()
+                        if (ClientIDBox.Password.Length > 1)
                         {
-                            Details = Details,
-                            State = State,
-                            Timestamps = timeChoose,
-                            Party = new Party()
+                            if (!IsStarted)
                             {
-                                ID = "justTextForWorkAPrtySystem",
-                                Size = PartySizeMin,
-                                Max = PartySizeMax
-                            },
-                            Assets = new Assets()
-                            {
-                                LargeImageKey = BigImage,
-                                LargeImageText = BigImageText,
-                                SmallImageKey = SmallImage,
-                                SmallImageText = SmallImageText
+                                Client = new DiscordRpcClient(AppID);
+                                Client.Initialize();
+
+                                Client.OnReady += OnReady;
+                                Client.OnPresenceUpdate += OnPresenceUpdate;
+                                Client.OnConnectionFailed += OnConnectionFailed;
+                                Client.OnConnectionEstablished += OnConnectionEstablished;
+                                Client.OnClose += OnClose;
+
+                                Timestamps timeChoose = null;
+
+                                if (IsCurrentTimeCheck)
+                                {
+                                    timeChoose = new Timestamps()
+                                    {
+                                        StartUnixMilliseconds = (ulong)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1,
+                                                                    DateTime.Now.Hour,
+                                                                    DateTime.Now.Minute,
+                                                                    DateTime.Now.Second))).TotalSeconds,
+                                    };
+                                }
+                                else if (IsElapsedTimeCheck)
+                                {
+                                    timeChoose = Timestamps.Now;
+                                }
+
+                                Client.SetPresence(new RichPresence()
+                                {
+                                    Details = Details,
+                                    State = State,
+                                    Timestamps = timeChoose,
+                                    Party = new Party()
+                                    {
+                                        ID = "justTextForWorkAPrtySystem",
+                                        Size = PartySizeMin,
+                                        Max = PartySizeMax
+                                    },
+                                    Assets = new Assets()
+                                    {
+                                        LargeImageKey = BigImage,
+                                        LargeImageText = BigImageText,
+                                        SmallImageKey = SmallImage,
+                                        SmallImageText = SmallImageText
+                                    }
+                                });
+
+                                IsStarted = true;
+
+                                while (true)
+                                {
+                                    if (IsAppCheck)
+                                    {
+                                        if (!IsAppStarted())
+                                        {
+                                            Client.Dispose();
+                                            this.Dispatcher.Invoke(() =>
+                                            {
+                                                this.ConsoleTextBox.Text += $"[INFO] Run App to continue!\n";
+                                            });
+                                            Thread.Sleep(5000);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
                             }
-                        });
-
-                        IsStarted = true;
+                            else
+                            {
+                                Client.Dispose();
+                                this.Dispatcher.Invoke(() =>
+                                {
+                                    this.ConsoleTextBox.Text += $"[INFO] Discord RPC connection closed!\n";
+                                });
+                                IsStarted = false;
+                            }
+                        }
+                        else
+                        {
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.ConsoleTextBox.Text += $"[ERROR] Enter Client ID before starting!\n";
+                            });
+                        }
                     }
                     else
                     {
-                        Client.Dispose();
                         this.Dispatcher.Invoke(() =>
                         {
-                            this.ConsoleTextBox.Text += $"[INFO] Discord RPC connection closed\n";
+                            this.ConsoleTextBox.Text += $"[ERROR] Enter App name before starting!\n";
                         });
-                        IsStarted = false;
                     }
                 }
                 else
                 {
-                    this.Dispatcher.Invoke(() =>
+                    if (ClientIDBox.Password.Length > 1)
                     {
-                        this.ConsoleTextBox.Text += $"[ERROR] Enter Client ID before starting!\n";
-                    });
+                        if (!IsStarted)
+                        {
+                            Client = new DiscordRpcClient(AppID);
+                            Client.Initialize();
+
+                            Client.OnReady += OnReady;
+                            Client.OnPresenceUpdate += OnPresenceUpdate;
+                            Client.OnConnectionFailed += OnConnectionFailed;
+                            Client.OnConnectionEstablished += OnConnectionEstablished;
+                            Client.OnClose += OnClose;
+
+                            Timestamps timeChoose = null;
+
+                            if (IsCurrentTimeCheck)
+                            {
+                                timeChoose = new Timestamps()
+                                {
+                                    StartUnixMilliseconds = (ulong)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1,
+                                                                DateTime.Now.Hour,
+                                                                DateTime.Now.Minute,
+                                                                DateTime.Now.Second))).TotalSeconds,
+                                };
+                            }
+                            else if (IsElapsedTimeCheck)
+                            {
+                                timeChoose = Timestamps.Now;
+                            }
+
+                            Client.SetPresence(new RichPresence()
+                            {
+                                Details = Details,
+                                State = State,
+                                Timestamps = timeChoose,
+                                Party = new Party()
+                                {
+                                    ID = "justTextForWorkAPrtySystem",
+                                    Size = PartySizeMin,
+                                    Max = PartySizeMax
+                                },
+                                Assets = new Assets()
+                                {
+                                    LargeImageKey = BigImage,
+                                    LargeImageText = BigImageText,
+                                    SmallImageKey = SmallImage,
+                                    SmallImageText = SmallImageText
+                                }
+                            });
+
+                            IsStarted = true;
+                        }
+                        else
+                        {
+                            Client.Dispose();
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.ConsoleTextBox.Text += $"[INFO] Discord RPC connection closed\n";
+                            });
+                            IsStarted = false;
+                        }
+                    }
+                    else
+                    {
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            this.ConsoleTextBox.Text += $"[ERROR] Enter Client ID before starting!\n";
+                        });
+                    }
                 }
             });
             thread.IsBackground = true;
@@ -769,6 +925,11 @@ namespace CustomRPCMaker.DRPC.Core
             ConsoleTextBox.ScrollToEnd();
         }
 
+        private void EditAppNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            AppName = EditAppNameTextBox.Text;
+        }
+
         private void TimestampStartTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
@@ -994,8 +1155,10 @@ namespace CustomRPCMaker.DRPC.Core
             PartySizeMinTextBox.Text = String.Empty;
             PartySizeMaxTextBox.Text = String.Empty;
             ClientIDBox.Password = String.Empty;
+            EditAppNameTextBox.Text = String.Empty;
 
             AppID = String.Empty;
+            AppName = String.Empty;
             Details = String.Empty;
             State = String.Empty;
             BigImage = String.Empty;
@@ -1013,6 +1176,7 @@ namespace CustomRPCMaker.DRPC.Core
             IsBigImageText = false;
             IsSmallImageText = false;
             IsParty = false;
+            IsAppCheck = false;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -1256,6 +1420,32 @@ namespace CustomRPCMaker.DRPC.Core
                         this.ConsoleTextBox.Text += $"[ERROR] Disable eplapsed time setting!\n";
                     });
                 }
+            }
+        }
+
+        private void EnableAppCheck_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (IsAppCheck)
+            {
+                IsAppCheck = false;
+                EnableAppCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png"));
+                EditAppNameTextBox.IsEnabled = false;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[INFO] App check for RPC start DISABLED!\n";
+                });
+            }
+            else
+            {
+                IsAppCheck = true;
+                EnableAppCheck.Source = new BitmapImage(new Uri("C:/Users/anivire/source/repos/CustomRPCMaker/DRPC.Core/ui_assets/icons/baseline_check_box_white_36dp.png"));
+                EditAppNameTextBox.IsEnabled = true;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    this.ConsoleTextBox.Text += $"[INFO] App check for RPC start ENABLED!\n";
+                });
             }
         }
     }
