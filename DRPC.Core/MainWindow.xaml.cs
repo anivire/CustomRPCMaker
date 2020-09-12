@@ -88,9 +88,6 @@ namespace CustomRPCMaker.DRPC.Core
         {
             InitializeComponent();
 
-            /*Debug taskWindow = new Debug();
-            taskWindow.Show();*/
-
             TaskbarIcon.Icon = new Icon(Environment.CurrentDirectory + @"/assets/ui_assets/discord-logo-Color.ico");
             TaskbarIcon.ToolTipText = "Discord RPC Maker";
             TaskbarIcon.Visibility = Visibility.Hidden;
@@ -137,8 +134,8 @@ namespace CustomRPCMaker.DRPC.Core
                             SmallImageNameTextBox.Text = config.ConfigSmallImage;
                             BigImageTextTextBox.Text = config.ConfigBigImageText;
                             SmallImageTextTextBox.Text = config.ConfigSmallImageText;
-                            PartySizeMinTextBox.Text = Convert.ToString(config.ConfigPartySizeMin);
                             PartySizeMaxTextBox.Text = Convert.ToString(config.ConfigPartySizeMax);
+                            PartySizeMinTextBox.Text = Convert.ToString(config.ConfigPartySizeMin);
                             AppName = config.ConfigAppName;
                             IsDetails = config.ConfigIsDetails;
                             IsState = config.ConfigIsState;
@@ -357,8 +354,8 @@ namespace CustomRPCMaker.DRPC.Core
                     SmallImageNameTextBox.Text = loadConfig.ConfigSmallImage;
                     BigImageTextTextBox.Text = loadConfig.ConfigBigImageText;
                     SmallImageTextTextBox.Text = loadConfig.ConfigSmallImageText;
-                    PartySizeMinTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMin);
                     PartySizeMaxTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMax);
+                    PartySizeMinTextBox.Text = Convert.ToString(loadConfig.ConfigPartySizeMin);
                     EditAppNameTextBox.Text = loadConfig.ConfigAppName;
                     IsDetails = loadConfig.ConfigIsDetails;
                     IsState = loadConfig.ConfigIsState;
@@ -381,7 +378,6 @@ namespace CustomRPCMaker.DRPC.Core
                             DetailsNameTextBox.IsEnabled = true;
                             DetailsButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
-
                         if (IsState)
                         {
                             this.Dispatcher.Invoke(() =>
@@ -391,8 +387,6 @@ namespace CustomRPCMaker.DRPC.Core
                             StateNameTextBox.IsEnabled = true;
                             StateButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
-                        else
-
                         if (IsTimestamp)
                         {
                             this.Dispatcher.Invoke(() =>
@@ -403,8 +397,6 @@ namespace CustomRPCMaker.DRPC.Core
                             TimestampEndTextBox.IsEnabled = true;
                             TimestampButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
-                        else
-
                         if (IsBigImageName)
                         {
                             this.Dispatcher.Invoke(() =>
@@ -413,10 +405,9 @@ namespace CustomRPCMaker.DRPC.Core
                             });
                             BigImageNameTextBox.IsEnabled = true;
                             BigImageTextTextBox.IsEnabled = true;
+                            IsBigImageName = true;
                             BigImageButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
-                        else
-
                         if (IsSmallImageName)
                         {
                             this.Dispatcher.Invoke(() =>
@@ -428,7 +419,6 @@ namespace CustomRPCMaker.DRPC.Core
                             IsSmallImageName = true;
                             SmallImageButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
-
                         if (IsParty)
                         {
                             this.Dispatcher.Invoke(() =>
