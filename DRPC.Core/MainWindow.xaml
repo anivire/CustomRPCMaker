@@ -270,7 +270,7 @@
         <Label Content="Console:" HorizontalAlignment="Left" Margin="835,102,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="20" Foreground="White"/>
         <Label Content="Party" HorizontalAlignment="Left" Margin="99,310,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Extra Bold}" FontSize="24" Foreground="White"/>
         <Label Content="size" HorizontalAlignment="Left" Margin="173,314,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Medium}" FontSize="20" Foreground="White"/>
-        <Image x:Name="PartyButton" HorizontalAlignment="Left" Height="36" Margin="21,313,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="PartyButton_MouseLeftButtonDown"/>
+        <Image x:Name="PartyButton" HorizontalAlignment="Left" Height="36" Margin="21,313,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_toggle_off_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="PartyButton_MouseLeftButtonDown" Opacity="0.5" IsEnabled="False"/>
         <TextBox x:Name="PartySizeMinTextBox" HorizontalAlignment="Left" Height="28" Margin="238,320,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="PartySizeMinTextBox_TextChanged" MaxLines="3" PreviewTextInput="PartySizeMinTextBox_PreviewTextInput">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>

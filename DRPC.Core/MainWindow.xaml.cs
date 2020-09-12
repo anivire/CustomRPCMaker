@@ -88,10 +88,8 @@ namespace CustomRPCMaker.DRPC.Core
         {
             InitializeComponent();
 
-
-            //
-            Debug taskWindow = new Debug();
-            taskWindow.Show();
+            /*Debug taskWindow = new Debug();
+            taskWindow.Show();*/
 
             TaskbarIcon.Icon = new Icon(Environment.CurrentDirectory + @"/assets/ui_assets/discord-logo-Color.ico");
             TaskbarIcon.ToolTipText = "Discord RPC Maker";
@@ -770,6 +768,9 @@ namespace CustomRPCMaker.DRPC.Core
                 StateNameTextBox.IsEnabled = true;
                 IsState = true;
                 StateButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+
+                PartyButton.Opacity = 1;
+                PartyButton.IsEnabled = true;
             }
             else
             {
@@ -780,6 +781,21 @@ namespace CustomRPCMaker.DRPC.Core
                 StateNameTextBox.IsEnabled = false;
                 IsState = false;
                 StateButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
+
+                PartyButton.Opacity = 0.5;
+                PartyButton.IsEnabled = false;
+
+                if (IsParty)
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        this.ConsoleTextBox.Text += $"[INFO] Party size field DISABLED\n";
+                    });
+                    PartySizeMinTextBox.IsEnabled = false;
+                    PartySizeMaxTextBox.IsEnabled = false;
+                    IsParty = false;
+                    PartyButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
+                }
             }
         }
 
@@ -969,16 +985,29 @@ namespace CustomRPCMaker.DRPC.Core
                 }
                 else
                 {
-                    PartySizeMin = Convert.ToInt32(PartySizeMinTextBox.Text);
-                    PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+                    if (Convert.ToInt32(PartySizeMinTextBox.Text) < Convert.ToInt32(PartySizeMaxTextBox.Text))
+                    {
+                        PartySizeMin = Convert.ToInt32(PartySizeMinTextBox.Text);
+                        PartySizePreview.Content = $"Party size ({PartySizeMin} of {PartySizeMax})";
+                    }
+                    else
+                    {
+                        PartySizeMinTextBox.Text = null;
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            this.ConsoleTextBox.Text += $"[ERROR] Party size value too big!\n";
+                        });
+                    }
                 }
             }
             catch
             {
+                PartySizeMin = 0;
                 PartySizeMinTextBox.Text = null;
+
                 this.Dispatcher.Invoke(() =>
                 {
-                    this.ConsoleTextBox.Text += $"[ERROR] Party size value too big!\n";
+                    this.ConsoleTextBox.Text += $"[ERROR] Party size min value must be less than a max value!\n";
                 });
             }
         }
@@ -1457,7 +1486,7 @@ namespace CustomRPCMaker.DRPC.Core
 
         private void HelpButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/aniv1re/PaintToolSAI-RPC");
+            Process.Start("https://github.com/aniv1re/CustomRPCMaker");
         }
     }
 }
