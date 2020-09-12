@@ -93,6 +93,7 @@ namespace CustomRPCMaker.DRPC.Core
 
             TaskbarIcon.Icon = new Icon(Environment.CurrentDirectory + @"/assets/ui_assets/discord-logo-Color.ico");
             TaskbarIcon.ToolTipText = "Discord RPC Maker";
+            TaskbarIcon.Visibility = Visibility.Hidden;
 
             this.Dispatcher.Invoke(() =>
             {
@@ -262,6 +263,7 @@ namespace CustomRPCMaker.DRPC.Core
             if (IsMinimizeCheck)
             {
                 this.Hide();
+                TaskbarIcon.Visibility = Visibility.Visible;
             }
             else
             {
@@ -272,12 +274,14 @@ namespace CustomRPCMaker.DRPC.Core
         private void MinimizeApp_Click(object sender, MouseButtonEventArgs e)
         {
             WindowState = WindowState.Minimized;
+            TaskbarIcon.Visibility = Visibility.Visible; 
         }
 
         private void TaskbarIcon_TrayMouseClick(object sender, RoutedEventArgs e)
         {
             this.Visibility = Visibility.Visible;
             this.WindowState = WindowState.Normal;
+            TaskbarIcon.Visibility = Visibility.Hidden;
         }
 
         private void CloseApp_MouseEnter(object sender, MouseEventArgs e)
