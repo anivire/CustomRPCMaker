@@ -2,8 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CustomRPCMaker"
-             StartupUri="DRPC.Core/MainWindow.xaml">
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="Montserrat Medium">./Fonts/Montserrat-Medium.ttf#Montserrat Medium</FontFamily>
+        <FontFamily x:Key="Montserrat Extra Bold">./Fonts/Montserrat-ExtraBold.ttf#Montserrat Extra Bold</FontFamily>
     </Application.Resources>
 </Application>

@@ -1454,5 +1454,10 @@ namespace CustomRPCMaker.DRPC.Core
                 });
             }
         }
+
+        private void HelpButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/aniv1re/PaintToolSAI-RPC");
+        }
     }
 }
