@@ -38,6 +38,8 @@ namespace CustomRPCMaker.DRPC.Core
         public bool ConfigIsBigImageText = false;
         public bool ConfigIsSmallImageText = false;
         public bool ConfigIsParty = false;
+        public bool ConfigIsElapsedTime = false;
+        public bool ConfigIsCurrentTime = false;
         public bool ConfigIsAppCheck = false;
     }
 
@@ -74,6 +76,8 @@ namespace CustomRPCMaker.DRPC.Core
         public bool IsBigImageText = false;
         public bool IsSmallImageText = false;
         public bool IsParty = false;
+        public bool IsElapsedTime = false;
+        public bool IsCurrentTime = false;
 
         public bool IsStarted = false;
         public bool IsMinimizeCheck = false;
@@ -171,8 +175,6 @@ namespace CustomRPCMaker.DRPC.Core
                                 {
                                     this.ConsoleTextBox.Text += $"[INFO] Timestamp field ENABLED\n";
                                 });
-                                TimestampStartTextBox.IsEnabled = true;
-                                TimestampEndTextBox.IsEnabled = true;
                                 TimestampButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                             }
                             if (IsBigImageName)
@@ -401,8 +403,6 @@ namespace CustomRPCMaker.DRPC.Core
                             {
                                 this.ConsoleTextBox.Text += $"[INFO] Timestamp field ENABLED\n";
                             });
-                            TimestampStartTextBox.IsEnabled = true;
-                            TimestampEndTextBox.IsEnabled = true;
                             TimestampButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
                         }
                         if (IsBigImageName)
@@ -490,7 +490,6 @@ namespace CustomRPCMaker.DRPC.Core
                     {
                         while (!IsAppStarted())
                         {
-
                             this.Dispatcher.Invoke(() =>
                             {
                                 this.ConsoleTextBox.Text += $"[INFO] Run App to continue!\n";
@@ -580,8 +579,7 @@ namespace CustomRPCMaker.DRPC.Core
                                             });
                                             Thread.Sleep(5000);
                                         }
-                                    }
-                                    
+                                    }  
                                 }
                             }
                             else
@@ -690,7 +688,7 @@ namespace CustomRPCMaker.DRPC.Core
                         }
                         else
                         {
-                            Client.Dispose();
+                            //Client.Dispose();
                             this.Dispatcher.Invoke(() =>
                             {
                                 this.ConsoleTextBox.Text += $"[INFO] Discord RPC connection closed\n";
@@ -1091,62 +1089,6 @@ namespace CustomRPCMaker.DRPC.Core
             }
         }
 
-/*        private void TimestampStartTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            try
-            {
-                if (TimestampStartTextBox.Text.Length < 1)
-                {
-                    TimestampStart = DateTime.Parse("0");
-                }
-                else if (Convert.ToDouble(TimestampStartTextBox.Text) > 2147483648)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-                else
-                {
-                   
-                    TimestampStart = DateTime.Parse(TimestampStartTextBox.Text);
-                }
-            }
-            catch
-            {
-                TimestampStartTextBox.Text = null;
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.ConsoleTextBox.Text += $"[ERROR] Timestamp value too big!\n";
-                });
-            }
-        }*/
-
-/*        private void TimestampEndTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            try
-            {
-                if (TimestampEndTextBox.Text.Length < 1)
-                {
-                    TimestampEnd = DateTime.Parse("0");
-                }
-                else if (Convert.ToDouble(TimestampEndTextBox.Text) > 2147483647)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-                else
-                {
-
-                    TimestampEnd = DateTime.Parse(TimestampEndTextBox.Text);
-                }
-            }
-            catch
-            {
-                TimestampEndTextBox.Text = null;
-                this.Dispatcher.Invoke(() =>
-                {
-                    this.ConsoleTextBox.Text += $"[ERROR] Timestamp value too big!\n";
-                });
-            }
-        }*/
-
         private void ReloadRPC_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.Dispatcher.Invoke(() =>
@@ -1225,8 +1167,6 @@ namespace CustomRPCMaker.DRPC.Core
         {
             DetailsNameTextBox.Text = String.Empty;
             StateNameTextBox.Text = String.Empty;
-            TimestampStartTextBox.Text = String.Empty;
-            TimestampEndTextBox.Text = String.Empty;
             BigImageNameTextBox.Text = String.Empty;
             SmallImageNameTextBox.Text = String.Empty;
             BigImageTextTextBox.Text = String.Empty;

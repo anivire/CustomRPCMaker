@@ -134,7 +134,7 @@
         <Label Content="while closing program" HorizontalAlignment="Left" Margin="748,569,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Medium}" FontSize="20" Foreground="White"/>
         <Image x:Name="MinimizeToTrayCheck" HorizontalAlignment="Left" Height="36" Margin="498,567,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="MinimizeToTrayCheck_MouseLeftButtonDown"/>
         <Label Content="Enable auto load" HorizontalAlignment="Left" Margin="536,615,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Extra Bold}" FontSize="24" Foreground="White"/>
-        <Label Content="previosly created RPC config" HorizontalAlignment="Left" Margin="754,619,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Medium}" FontSize="20" Foreground="White"/>
+        <Label Content="previously created RPC config" HorizontalAlignment="Left" Margin="754,619,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Medium}" FontSize="20" Foreground="White"/>
         <Image x:Name="AutoLoadConfigCheck" HorizontalAlignment="Left" Height="36" Margin="498,617,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="AutoLoadConfigCheck_MouseLeftButtonDown"/>
         <Label Content="Display current time" HorizontalAlignment="Left" Margin="58,664,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Extra Bold}" FontSize="24" Foreground="White"/>
         <Label Content="in timestamp" HorizontalAlignment="Left" Margin="325,668,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Medium}" FontSize="20" Foreground="White"/>
@@ -192,11 +192,6 @@
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="TimestampStartTextBox" HorizontalAlignment="Left" Height="28" Margin="238,195,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="128">
-            <TextBox.OpacityMask>
-                <ImageBrush ImageSource="ui_assets/text_rect.png"/>
-            </TextBox.OpacityMask>
-        </TextBox>
         <TextBox x:Name="BigImageNameTextBox" HorizontalAlignment="Left" Height="28" Margin="238,236,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="BigImageNameTextBox_TextChanged" MaxLines="120">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
@@ -217,24 +212,24 @@
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="LoadPathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="706,360,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
+        <TextBox x:Name="LoadPathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="726,360,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <Image x:Name="ChooseLoadPathButton" HorizontalAlignment="Left" Height="36" Margin="946,355,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_folder_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514" MouseLeftButtonDown="ChooseLoadPathButton_MouseLeftButtonDown" ToolTip="Open path."/>
-        <TextBox x:Name="SavePathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="706,318,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
+        <Image x:Name="ChooseLoadPathButton" HorizontalAlignment="Left" Height="36" Margin="966,355,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_folder_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514" MouseLeftButtonDown="ChooseLoadPathButton_MouseLeftButtonDown" ToolTip="Open path."/>
+        <TextBox x:Name="SavePathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="726,318,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <Image x:Name="ChooseSavePathButton" HorizontalAlignment="Left" Height="36" Margin="946,313,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_folder_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514" MouseLeftButtonDown="ChooseSavePathButton_MouseLeftButtonDown" ToolTip="Open path."/>
-        <TextBox x:Name="EditPathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="706,399,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
+        <Image x:Name="ChooseSavePathButton" HorizontalAlignment="Left" Height="36" Margin="966,313,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_folder_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514" MouseLeftButtonDown="ChooseSavePathButton_MouseLeftButtonDown" ToolTip="Open path."/>
+        <TextBox x:Name="EditPathConfigTextBox" HorizontalAlignment="Left" Height="28" Margin="726,399,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <Image x:Name="OpenConfigButton" HorizontalAlignment="Left" Height="36" Margin="946,394,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_open_in_new_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514" MouseLeftButtonDown="OpenConfigButton_MouseLeftButtonDown" ToolTip="Open file."/>
+        <Image x:Name="OpenConfigButton" HorizontalAlignment="Left" Height="36" Margin="966,394,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_open_in_new_white_36dp.png" Stretch="Fill" Cursor="Hand" RenderTransformOrigin="0.785,0.514" MouseLeftButtonDown="OpenConfigButton_MouseLeftButtonDown" ToolTip="Open file."/>
         <Image x:Name="HiddenBigImageText" HorizontalAlignment="Left" Height="99" Margin="528,163,0,0" VerticalAlignment="Top" Width="98" Source="ui_assets/discord_big_image.png" Stretch="Fill"/>
         <Image x:Name="HiddenSmallImageText" HorizontalAlignment="Left" Height="36" Margin="602,236,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/discord_small_image.png" Stretch="Fill"/>
         <PasswordBox x:Name="ClientIDBox" HorizontalAlignment="Left" BorderThickness="0" Margin="152,569,0,0" VerticalAlignment="Top" Width="290" Height="28" BorderBrush="#00000000" Foreground="White" SelectionBrush="#FF5983E4" VerticalContentAlignment="Center" Padding="5,0,0,0" PasswordChanged="ClientIDBox_PasswordChanged" Background="#FF24262B">
@@ -249,9 +244,9 @@
         <Label Content="Maker" HorizontalAlignment="Left" Margin="182,6,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Medium}" FontSize="20" Foreground="White"/>
         <Label x:Name="Version" Content="preview build" HorizontalAlignment="Left" Margin="249,16,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Medium}" FontSize="10" Foreground="White"/>
         <Image HorizontalAlignment="Left" Height="36" Margin="499,435,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_add_to_queue_white_36dp.png" Stretch="Fill"/>
-        <Label Content="App" HorizontalAlignment="Left" Margin="544,433,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Extra Bold}" FontSize="24" Foreground="White"/>
-        <Label Content="name" HorizontalAlignment="Left" Margin="601,437,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Medium}" FontSize="20" Foreground="White"/>
-        <TextBox x:Name="EditAppNameTextBox" HorizontalAlignment="Left" Height="28" Margin="706,440,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="EditAppNameTextBox_TextChanged">
+        <Label Content="Process" HorizontalAlignment="Left" Margin="544,433,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Extra Bold}" FontSize="24" Foreground="White"/>
+        <Label Content="name" HorizontalAlignment="Left" Margin="647,437,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Medium}" FontSize="20" Foreground="White"/>
+        <TextBox x:Name="EditAppNameTextBox" HorizontalAlignment="Left" Height="28" Margin="726,440,0,0" VerticalAlignment="Top" Width="224" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" TextChanged="EditAppNameTextBox_TextChanged">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
@@ -276,11 +271,6 @@
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
             </TextBox.OpacityMask>
         </TextBox>
-        <TextBox x:Name="TimestampEndTextBox" HorizontalAlignment="Left" Height="28" Margin="357,195,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="128">
-            <TextBox.OpacityMask>
-                <ImageBrush ImageSource="ui_assets/text_rect.png"/>
-            </TextBox.OpacityMask>
-        </TextBox>
         <TextBox x:Name="PartySizeMaxTextBox" HorizontalAlignment="Left" Height="28" Margin="357,320,0,0" VerticalAlignment="Top" Width="105" Background="#FF24262B" Foreground="White" BorderBrush="#00ABADB3" FontFamily="Montserrat Medium" SelectionBrush="#FF5983E4" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" IsEnabled="False" MaxLines="3" PreviewTextInput="PartySizeMaxTextBox_PreviewTextInput" TextChanged="PartySizeMaxTextBox_TextChanged">
             <TextBox.OpacityMask>
                 <ImageBrush ImageSource="ui_assets/text_rect.png"/>
@@ -292,5 +282,6 @@
         <Image x:Name="DisplayElapsedTimeCheck" HorizontalAlignment="Left" Height="36" Margin="21,617,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_check_box_outline_blank_white_36dp.png" Cursor="Hand" MouseLeftButtonDown="DisplayElapsedTimeCheck_MouseLeftButtonDown"/>
         <Image x:Name="ClearButton" HorizontalAlignment="Left" Height="36" Margin="426,435,0,0" VerticalAlignment="Top" Width="36" Source="ui_assets/icons/baseline_delete_white_36dp.png" Stretch="Fill" Cursor="Hand" MouseLeftButtonDown="ClearButton_MouseLeftButtonDown"/>
         <Label Content="Clear" HorizontalAlignment="Left" Margin="364,437,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Medium}" FontSize="20" Foreground="White"/>
+        <Label Content="(Use check-boxes below)" HorizontalAlignment="Left" Margin="258,193,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Montserrat Medium}" FontSize="14" Foreground="White"/>
     </Grid>
 </Window>
