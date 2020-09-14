@@ -474,7 +474,10 @@ namespace CustomRPCMaker.DRPC.Core
             {
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         private void StartRPCButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -487,6 +490,7 @@ namespace CustomRPCMaker.DRPC.Core
                     {
                         while (!IsAppStarted())
                         {
+
                             this.Dispatcher.Invoke(() =>
                             {
                                 this.ConsoleTextBox.Text += $"[INFO] Run App to continue!\n";
@@ -563,15 +567,13 @@ namespace CustomRPCMaker.DRPC.Core
                                     });
                                 }
 
-                                IsStarted = true;
-
                                 while (true)
                                 {
                                     if (IsAppCheck)
                                     {
                                         if (!IsAppStarted())
                                         {
-                                            Client.Dispose();
+                                            //Client.Dispose();
                                             this.Dispatcher.Invoke(() =>
                                             {
                                                 this.ConsoleTextBox.Text += $"[INFO] Run App to continue!\n";
@@ -594,6 +596,8 @@ namespace CustomRPCMaker.DRPC.Core
                         }
                         else
                         {
+                            IsStarted = false;
+
                             this.Dispatcher.Invoke(() =>
                             {
                                 this.ConsoleTextBox.Text += $"[ERROR] Enter Client ID before starting!\n";
@@ -602,6 +606,8 @@ namespace CustomRPCMaker.DRPC.Core
                     }
                     else
                     {
+                        IsStarted = false;
+
                         this.Dispatcher.Invoke(() =>
                         {
                             this.ConsoleTextBox.Text += $"[ERROR] Enter App name before starting!\n";
@@ -943,7 +949,7 @@ namespace CustomRPCMaker.DRPC.Core
 
         private void SmallImageTextTexBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            SmallImageText = BigImageTextTextBox.Text;
+            SmallImageText = SmallImageTextTextBox.Text;
             HiddenSmallImageText.ToolTip = SmallImageTextTextBox.Text;
 
             if (SmallImageTextTextBox.Text.Length < 1)
@@ -977,7 +983,7 @@ namespace CustomRPCMaker.DRPC.Core
 
         private void SmallImageNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            SmallImage = BigImageNameTextBox.Text;
+            SmallImage = SmallImageNameTextBox.Text;
         }
 
         private void ConsoleTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
