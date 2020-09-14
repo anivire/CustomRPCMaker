@@ -281,6 +281,11 @@ namespace CustomRPCMaker.DRPC.Core
             TaskbarIcon.Visibility = Visibility.Hidden;
         }
 
+        private void HelpButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://github.com/aniv1re/CustomRPCMaker");
+        }
+
         private void CloseApp_MouseEnter(object sender, MouseEventArgs e)
         {
             CloseApp.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_close_red_36dp.png"));
@@ -386,6 +391,9 @@ namespace CustomRPCMaker.DRPC.Core
                             });
                             StateNameTextBox.IsEnabled = true;
                             StateButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
+
+                            PartyButton.Opacity = 1;
+                            PartyButton.IsEnabled = true;
                         }
                         if (IsTimestamp)
                         {
@@ -516,25 +524,44 @@ namespace CustomRPCMaker.DRPC.Core
                                     timeChoose = Timestamps.Now;
                                 }
 
-                                Client.SetPresence(new RichPresence()
+                                if (IsParty)
                                 {
-                                    Details = Details,
-                                    State = State,
-                                    Timestamps = timeChoose,
-                                    Party = new Party()
+                                    Client.SetPresence(new RichPresence()
                                     {
-                                        ID = "justTextForWorkAPrtySystem",
-                                        Size = PartySizeMin,
-                                        Max = PartySizeMax
-                                    },
-                                    Assets = new Assets()
+                                        Details = Details,
+                                        State = State,
+                                        Timestamps = timeChoose,
+                                        Party = new Party()
+                                        {
+                                            ID = "justTextForWorkAPrtySystem",
+                                            Size = PartySizeMin,
+                                            Max = PartySizeMax
+                                        },
+                                        Assets = new Assets()
+                                        {
+                                            LargeImageKey = BigImage,
+                                            LargeImageText = BigImageText,
+                                            SmallImageKey = SmallImage,
+                                            SmallImageText = SmallImageText
+                                        }
+                                    });
+                                }
+                                else
+                                {
+                                    Client.SetPresence(new RichPresence()
                                     {
-                                        LargeImageKey = BigImage,
-                                        LargeImageText = BigImageText,
-                                        SmallImageKey = SmallImage,
-                                        SmallImageText = SmallImageText
-                                    }
-                                });
+                                        Details = Details,
+                                        State = State,
+                                        Timestamps = timeChoose,
+                                        Assets = new Assets()
+                                        {
+                                            LargeImageKey = BigImage,
+                                            LargeImageText = BigImageText,
+                                            SmallImageKey = SmallImage,
+                                            SmallImageText = SmallImageText
+                                        }
+                                    });
+                                }
 
                                 IsStarted = true;
 
@@ -552,10 +579,7 @@ namespace CustomRPCMaker.DRPC.Core
                                             Thread.Sleep(5000);
                                         }
                                     }
-                                    else
-                                    {
-                                        break;
-                                    }
+                                    
                                 }
                             }
                             else
@@ -616,25 +640,45 @@ namespace CustomRPCMaker.DRPC.Core
                                 timeChoose = Timestamps.Now;
                             }
 
-                            Client.SetPresence(new RichPresence()
+
+                            if (IsParty)
                             {
-                                Details = Details,
-                                State = State,
-                                Timestamps = timeChoose,
-                                Party = new Party()
+                                Client.SetPresence(new RichPresence()
                                 {
-                                    ID = "justTextForWorkAPrtySystem",
-                                    Size = PartySizeMin,
-                                    Max = PartySizeMax
-                                },
-                                Assets = new Assets()
+                                    Details = Details,
+                                    State = State,
+                                    Timestamps = timeChoose,
+                                    Party = new Party()
+                                    {
+                                        ID = "justTextForWorkAPrtySystem",
+                                        Size = PartySizeMin,
+                                        Max = PartySizeMax
+                                    },
+                                    Assets = new Assets()
+                                    {
+                                        LargeImageKey = BigImage,
+                                        LargeImageText = BigImageText,
+                                        SmallImageKey = SmallImage,
+                                        SmallImageText = SmallImageText
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                Client.SetPresence(new RichPresence()
                                 {
-                                    LargeImageKey = BigImage,
-                                    LargeImageText = BigImageText,
-                                    SmallImageKey = SmallImage,
-                                    SmallImageText = SmallImageText
-                                }
-                            });
+                                    Details = Details,
+                                    State = State,
+                                    Timestamps = timeChoose,
+                                    Assets = new Assets()
+                                    {
+                                        LargeImageKey = BigImage,
+                                        LargeImageText = BigImageText,
+                                        SmallImageKey = SmallImage,
+                                        SmallImageText = SmallImageText
+                                    }
+                                });
+                            }
 
                             IsStarted = true;
                         }
@@ -1099,6 +1143,11 @@ namespace CustomRPCMaker.DRPC.Core
 
         private void ReloadRPC_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            this.Dispatcher.Invoke(() =>
+            {
+                this.ConsoleTextBox.Text += $"[INFO] Reloading Discord RPC config...\n";
+            });
+
             Timestamps timeChoose = null;
 
             if (IsStarted)
@@ -1118,7 +1167,7 @@ namespace CustomRPCMaker.DRPC.Core
                     timeChoose = Timestamps.Now;
                 }
 
-                if (IsTimestamp)
+                if (IsParty)
                 {
                     Client.SetPresence(new RichPresence()
                     {
@@ -1146,12 +1195,7 @@ namespace CustomRPCMaker.DRPC.Core
                     {
                         Details = Details,
                         State = State,
-                        Party = new Party()
-                        {
-                            ID = "justTextForWorkAPrtySystem",
-                            Size = PartySizeMin,
-                            Max = PartySizeMax
-                        },
+                        Timestamps = timeChoose,
                         Assets = new Assets()
                         {
                             LargeImageKey = BigImage,
@@ -1476,11 +1520,6 @@ namespace CustomRPCMaker.DRPC.Core
                     this.ConsoleTextBox.Text += $"[INFO] App check for RPC start ENABLED!\n";
                 });
             }
-        }
-
-        private void HelpButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Process.Start("https://github.com/aniv1re/CustomRPCMaker");
         }
     }
 }
