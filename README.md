@@ -8,5 +8,5 @@ Current **Roadmap** - https://trello.com/b/KrqFBiVH/custom-rpc
 
 <p align="center"><img src="https://i.imgur.com/SbHT2ut.png"></p>
 
-# Get Help?
+# Need Help?
 Use the **DRPC-wiki**: https://github.com/aniv1re/CustomRPCMaker/wiki
