@@ -150,6 +150,8 @@ namespace CustomRPCMaker.DRPC.Core
                             IsSmallImageText = config.ConfigIsSmallImageText;
                             IsParty = config.ConfigIsParty;
                             IsAppCheck = config.ConfigIsAppCheck;
+                            IsElapsedTimeCheck = config.ConfigIsElapsedTime;
+                            IsCurrentTimeCheck = config.ConfigIsCurrentTime;
 
                             if (IsDetails)
                             {
@@ -218,6 +220,26 @@ namespace CustomRPCMaker.DRPC.Core
                                 EditAppNameTextBox.IsEnabled = true;
                                 EnableAppCheck.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_check_box_white_36dp.png"));
                             }
+                            if (IsElapsedTimeCheck)
+                            {
+                                IsElapsedTimeCheck = true;
+                                DisplayElapsedTimeCheck.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_check_box_white_36dp.png"));
+
+                                this.Dispatcher.Invoke(() =>
+                                {
+                                    this.ConsoleTextBox.Text += $"[INFO] Display elapsed time ENABLED!\n";
+                                });
+                            }
+                            if (IsCurrentTimeCheck)
+                            {
+                                IsCurrentTimeCheck = true;
+                                DisplayCurrentTimeCheck.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_check_box_white_36dp.png"));
+
+                                this.Dispatcher.Invoke(() =>
+                                {
+                                    this.ConsoleTextBox.Text += $"[INFO] Display current time ENABLED!\n";
+                                });
+                            }
 
                             LoadPathConfigTextBox.Text = loadConfig.ConfigPath;
                             EditPathConfigTextBox.Text = loadConfig.ConfigPath;
@@ -285,7 +307,7 @@ namespace CustomRPCMaker.DRPC.Core
 
         private void HelpButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("https://github.com/aniv1re/CustomRPCMaker");
+            Process.Start("https://github.com/aniv1re/CustomRPCMaker/wiki");
         }
 
         private void CloseApp_MouseEnter(object sender, MouseEventArgs e)
@@ -320,7 +342,9 @@ namespace CustomRPCMaker.DRPC.Core
                   ConfigIsBigImageText = IsBigImageText,
                   ConfigIsSmallImageText = IsSmallImageText,
                   ConfigIsParty = IsParty,
-                  ConfigIsAppCheck = IsAppCheck
+                  ConfigIsAppCheck = IsAppCheck,
+                  ConfigIsCurrentTime = IsCurrentTimeCheck,
+                  ConfigIsElapsedTime = IsElapsedTimeCheck
             };
 
             SaveFileDialog saveFileDiaINFO = new SaveFileDialog();
@@ -373,6 +397,8 @@ namespace CustomRPCMaker.DRPC.Core
                     IsSmallImageText = loadConfig.ConfigIsSmallImageText;
                     IsParty = loadConfig.ConfigIsParty;
                     IsAppCheck = loadConfig.ConfigIsAppCheck;
+                    IsElapsedTimeCheck = loadConfig.ConfigIsElapsedTime;
+                    IsCurrentTimeCheck = loadConfig.ConfigIsCurrentTime;
 
                     this.Dispatcher.Invoke(() =>
                     {
@@ -446,6 +472,26 @@ namespace CustomRPCMaker.DRPC.Core
 
                             EditAppNameTextBox.IsEnabled = true;
                             EnableAppCheck.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_check_box_white_36dp.png"));
+                        }
+                        if (IsElapsedTimeCheck)
+                        {
+                            IsElapsedTimeCheck = true;
+                            DisplayElapsedTimeCheck.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_check_box_white_36dp.png"));
+
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.ConsoleTextBox.Text += $"[INFO] Display elapsed time ENABLED!\n";
+                            });
+                        }
+                        if (IsCurrentTimeCheck)
+                        {
+                            IsCurrentTimeCheck = true;
+                            DisplayCurrentTimeCheck.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_check_box_white_36dp.png"));
+
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                this.ConsoleTextBox.Text += $"[INFO] Display current time ENABLED!\n";
+                            });
                         }
 
                         this.ConsoleTextBox.Text += $"[INFO] Config successfully loaded!\n";
@@ -849,8 +895,6 @@ namespace CustomRPCMaker.DRPC.Core
                 {
                     this.ConsoleTextBox.Text += $"[INFO] Timestamp field ENABLED\n";
                 });
-                // TimestampStartTextBox.IsEnabled = true;
-                // TimestampEndTextBox.IsEnabled = true;
                 IsTimestamp = true;
                 TimestampButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_on_white_36dp.png"));
             }
@@ -860,8 +904,6 @@ namespace CustomRPCMaker.DRPC.Core
                 {
                     this.ConsoleTextBox.Text += $"[INFO] Timestamp field DISABLED\n";
                 });
-                // TimestampStartTextBox.IsEnabled = false;
-                // TimestampEndTextBox.IsEnabled = false;
                 IsTimestamp = false;
                 TimestampButton.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"/assets/ui_assets/icons/baseline_toggle_off_white_36dp.png"));
             }
@@ -992,18 +1034,6 @@ namespace CustomRPCMaker.DRPC.Core
         private void EditAppNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             AppName = EditAppNameTextBox.Text;
-        }
-
-        private void TimestampStartTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
-        private void TimestampEndTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void PartySizeMinTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
