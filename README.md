@@ -11,3 +11,5 @@ Current Roadmap — https://trello.com/b/KrqFBiVH/custom-rpc
 
 # Need Help?
 Use the **DRPC-wiki**: https://github.com/aniv1re/CustomRPCMaker/wiki
+
+# Download Latest Version — [here](https://github.com/aniv1re/CustomRPCMaker/releases/latest)
