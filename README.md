@@ -1,4 +1,4 @@
-<h1 align="center">Wecome to Discord RPC Maker 👋</h1>
+<h1 align="center">Welcome to Discord RPC Maker 👋</h1>
 
 <p align="center">
     <img alt="Made with" src="https://img.shields.io/badge/Made%20with-C%23-green">
