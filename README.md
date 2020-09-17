@@ -23,7 +23,7 @@
 <img align="center" src="https://i.imgur.com/SbHT2ut.png">
 
 <h1 align="center">🐛 Found Bug?</h1>
-<p align="center">Please tell about him: — <a href="https://github.com/aniv1re/CustomRPCMaker/issues/new">here<a/></p>
+<p align="center">Please tell about him: <a href="https://github.com/aniv1re/CustomRPCMaker/issues/new">here<a/></p>
 
 <h1 align="center">📝 Need Help?</h1> 
 <p align="center">Use the Discord RPC wiki: <a href="https://github.com/aniv1re/CustomRPCMaker/wiki">here</a></p>
