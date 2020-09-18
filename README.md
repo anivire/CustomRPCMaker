@@ -15,7 +15,7 @@
 **A:** It's an advanced status that allows you to add multiple lines of text, picture, icon, party size and timestamp.
 
 **Q:** What features does it contain?  
-**A:** Customizable details, state, timestamp*, images with image's text, users configs and etc.
+**A:** Customizable details, state, timestamp*, images with image's text, user's configs and etc.
 
 <h1 align="center">✨ Current Roadmap:</h1> 
 <p align="center">Check it — <a href="https://trello.com/b/KrqFBiVH/custom-rpc">here</a></p>
